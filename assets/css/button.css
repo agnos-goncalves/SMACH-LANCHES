@@ -91,3 +91,40 @@
 .btn-error:active {
   background-color: var(--cl-error-active);
 }
+
+/* STATUS */
+.btn-default.__received {
+  background-color: var(--cl-black-300);
+  color: var(--cl-black-600);
+  border: 1px solid var(--cl-black-600);
+}
+.btn-default.__received:hover {
+  background-color: var(--cl-black-200);
+}
+.btn-default.__received:active {
+  background-color: var(--cl-black-400);
+}
+
+.btn-warning.__done {
+  background-color: var(--cl-yellow-300);
+  color: var(--cl-yellow-600);
+  border: 1px solid var(--cl-yellow-600);
+}
+.btn-warning.__done:hover {
+  background-color: var(--cl-yellow-200);
+}
+.btn-warning.__done:active {
+  background-color: var(--cl-yellow-400);
+}
+
+.btn-success.__delivered {
+  background-color: var(--cl-green-300);
+  color: var(--cl-green-600);
+  border: 1px solid var(--cl-green-600);
+}
+.btn-success.__delivered:hover {
+  background-color: var(--cl-green-200);
+}
+.btn-success.__delivered:active {
+  background-color: var(--cl-green-400);
+}

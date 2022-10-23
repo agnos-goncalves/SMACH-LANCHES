@@ -16,6 +16,9 @@
         padding: 20px 0;
         border-bottom: 1px gray dashed;
       }
+      .separator .field {
+        margin-bottom: 20px;
+      }
     </style>
     <title>Components</title>
   </head>
@@ -41,16 +44,21 @@
       <button class="btn btn-error">button error</button>
     </div>
     <div class="separator">
+      <button class="btn btn-default __received">receveid</button>
+      <button class="btn btn-warning __done">done</button>
+      <button class="btn btn-success __delivered">entregue</button>
+    </div>
+    <div class="separator">
       <fieldset class="field">
         <label for="name">Label</label>
-        <input type="text" name="name" placeholder="insert name" />
+        <input type="text" name="name" placeholder="Insert name" />
       </fieldset>
       <fieldset class="field">
         <label for="name">Label</label>
         <input
           type="text"
           name="name"
-          placeholder="insert name"
+          placeholder="Insert name"
           value="Filled"
         />
       </fieldset>
@@ -59,19 +67,47 @@
         <input
           type="text"
           name="name"
-          placeholder="insert name"
+          placeholder="Insert name"
           value="With error"
         />
       </fieldset>
       <fieldset class="field">
         <label for="name">Disabled</label>
-        <input type="text" name="name" placeholder="insert name" disabled />
+        <input type="text" name="name" placeholder="Insert name" disabled />
       </fieldset>
+    </div>
+    <div class="separator">
       <fieldset class="field">
         <label for="name">Delivery</label>
         <input type="radio" name="name" />
         <label for="name">Salao</label>
         <input type="radio" name="name" />
+      </fieldset>
+    </div>
+    <div class="separator">
+      <fieldset class="field">
+        <label for="name">Default</label>
+        <select>
+          <option>Default</option>
+          <option value="delivery">Delivery</option>
+          <option value="salao">Salão</option>
+        </select>
+      </fieldset>
+      <fieldset class="field">
+        <label for="name">Selected</label>
+        <select value="delivery">
+          <option>Default</option>
+          <option selected value="delivery">Delivery</option>
+          <option value="salao">Salão</option>
+        </select>
+      </fieldset>
+      <fieldset class="field">
+        <label for="name">Disabled</label>
+        <select disabled>
+          <option>Default</option>
+          <option selected value="delivery">Delivery</option>
+          <option value="salao">Salão</option>
+        </select>
       </fieldset>
     </div>
   </body>
