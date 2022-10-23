@@ -38,13 +38,17 @@
   --cl-yellow-100: #ffe485;
   --cl-yellow-200: #ffd952;
   --cl-yellow-300: #ffce20;
-  --cl-yellow-400: ##ebb700;
+  --cl-yellow-400: #ebb700;
   --cl-yellow-500: #b88f00;
   --cl-yellow-600: #856700;
 
   /* TEMPLATE COLORS */
 
   --cl-text: var(--cl-black-600);
+
+  --cl-default: var(--cl-black-100);
+  --cl-default-active: var(--cl-black-500);
+  --cl-default-hover: var(--cl-black-300);
 
   --cl-primary: var(--cl-orange-400);
   --cl-primary-active: var(--cl-orange-500);
@@ -66,4 +70,12 @@
   --cl-error: var(--cl-red-400);
   --cl-error-active: var(--cl-red-500);
   --cl-error-hover: var(--cl-red-300);
+
+  /*  FONT SIZE */
+  --fns-default: 16px;
+
+  /* RADIUS */
+  --br-xs: 2px;
+  --br-md: 4px;
+  --br-lg: 8px;
 }

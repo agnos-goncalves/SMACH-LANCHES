@@ -1,0 +1,94 @@
+/* DEFAULT STYLE */
+.btn-default,
+.btn-primary,
+.btn-cta,
+.btn-success,
+.btn-warning,
+.btn-error {
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  padding: 8px;
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+
+  background: var(--cl-default);
+  border-radius: var(--br-lg);
+  color: white;
+  font-weight: normal;
+}
+
+/* BUTTONS COMUNS */
+
+.btn-default:hover {
+  background: var(--cl-default-hover);
+}
+
+.btn-default:active {
+  background-color: var(--cl-default-active);
+}
+
+.btn-primary {
+  background: var(--cl-primary);
+}
+
+.btn-primary:hover {
+  background: var(--cl-primary-hover);
+}
+
+.btn-primary:active {
+  background-color: var(--cl-primary-active);
+}
+
+.btn-cta {
+  background: var(--cl-cta);
+}
+
+.btn-cta:hover {
+  background: var(--cl-cta-hover);
+}
+
+.btn-cta:active {
+  background-color: var(--cl-cta-active);
+}
+
+/* BUTTONS STATUS */
+.btn-success {
+  background: var(--cl-success);
+}
+
+.btn-success:hover {
+  background: var(--cl-success-hover);
+}
+
+.btn-success:active {
+  background-color: var(--cl-success-active);
+}
+
+.btn-warning {
+  background: var(--cl-warning);
+}
+
+.btn-warning:hover {
+  background: var(--cl-warning-hover);
+}
+
+.btn-warning:active {
+  background-color: var(--cl-warning-active);
+}
+
+.btn-error {
+  background: var(--cl-error);
+}
+
+.btn-error:hover {
+  background: var(--cl-error-hover);
+}
+
+.btn-error:active {
+  background-color: var(--cl-error-active);
+}
