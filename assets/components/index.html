@@ -11,16 +11,34 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .separator {
+        padding: 20px 0;
+        border-bottom: 1px gray dashed;
+      }
+    </style>
     <title>Components</title>
   </head>
   <body>
-    <div>
-      <button class="btn-default">button default</button>
-      <button class="btn-primary">button primary</button>
-      <button class="btn-cta">button cta</button>
-      <button class="btn-success">button success</button>
-      <button class="btn-warning">button warning</button>
-      <button class="btn-error">button error</button>
+    <div class="separator">
+      <i class="icon icon-close"></i>
+      <i class="icon icon-edit"></i>
+      <i class="icon icon-filter"></i>
+      <i class="icon icon-plus"></i>
+      <i class="icon icon-print"></i>
+      <i class="icon icon-search"></i>
+      <i class="icon icon-trash"></i>
+    </div>
+    <div class="separator">
+      <button class="btn btn-default">button default</button>
+      <button class="btn btn-primary">button primary</button>
+      <button class="btn btn-cta">
+        <i class="icon icon-plus"></i>button cta
+        <i class="icon icon-plus"></i>
+      </button>
+      <button class="btn btn-success">button success</button>
+      <button class="btn btn-warning">button warning</button>
+      <button class="btn btn-error">button error</button>
     </div>
   </body>
 </html>

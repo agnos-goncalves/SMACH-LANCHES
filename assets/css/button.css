@@ -1,10 +1,5 @@
 /* DEFAULT STYLE */
-.btn-default,
-.btn-primary,
-.btn-cta,
-.btn-success,
-.btn-warning,
-.btn-error {
+.btn {
   border: none;
   padding: 0;
   font: inherit;
@@ -20,6 +15,10 @@
   border-radius: var(--br-lg);
   color: white;
   font-weight: normal;
+}
+
+.btn .icon-plus {
+  background-image: url(../img/svg/icon-plus-white.svg);
 }
 
 /* BUTTONS COMUNS */
