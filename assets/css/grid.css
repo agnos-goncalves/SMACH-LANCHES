@@ -5,10 +5,10 @@
   flex-wrap: wrap;
 }
 
-.row .col {
+/* .row .col {
   padding: 5px;
   border: 1px solid red;
-}
+} */
 
 .col,
 .col-12 {
@@ -50,7 +50,7 @@
 
 /* TABLET */
 @media only screen and (max-width: 768px) {
-  .col.__ms-hidden {
+  .col.__md-hidden {
     display: none;
   }
   .col-md-12 {

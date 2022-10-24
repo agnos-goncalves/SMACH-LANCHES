@@ -16,6 +16,10 @@
 @import url("./table.css");
 @import url("./form.css");
 
+/* CONTAINERS */
+@import url("./sidebar.css");
+@import url("./footer.css");
+
 body {
   font-family: "Inter", sans-serif;
   font-size: var(--fns-default);
@@ -23,15 +27,4 @@ body {
 
 body main {
   min-height: 700px;
-}
-
-.sidebar {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.sidebar-information span {
-  display: block;
 }

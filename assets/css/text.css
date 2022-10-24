@@ -13,6 +13,7 @@ strong.text,
 .text strong {
   font-size: inherit;
   color: var(--cl-black-600);
+
   font-weight: bold;
   line-height: inherit;
 }
