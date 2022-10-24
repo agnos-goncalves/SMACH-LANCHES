@@ -6,6 +6,7 @@
 @import url("./grid.css");
 
 /* ELEMENTS */
+@import url("./text.css");
 @import url("./icon.css");
 @import url("./button.css");
 @import url("./field.css");

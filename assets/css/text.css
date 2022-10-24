@@ -1,0 +1,18 @@
+p.text {
+  font-size: var(--fns-default);
+  color: var(--cl-text);
+}
+
+span.text {
+  font-size: var(--fns-xs);
+  color: var(--cl-text);
+  line-height: 17px;
+}
+
+strong.text,
+.text strong {
+  font-size: inherit;
+  color: var(--cl-black-600);
+  font-weight: bold;
+  line-height: inherit;
+}
