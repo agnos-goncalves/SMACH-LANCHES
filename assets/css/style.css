@@ -1,8 +1,16 @@
+/* CONFIG */
 @import url("./reset.css");
 @import url("./variable.css");
+
+/* UTILS */
+@import url("./grid.css");
+
+/* ELEMENTS */
 @import url("./icon.css");
 @import url("./button.css");
 @import url("./field.css");
+
+/* COMPONENTS */
 @import url("./notify.css");
 @import url("./table.css");
 @import url("./form.css");
