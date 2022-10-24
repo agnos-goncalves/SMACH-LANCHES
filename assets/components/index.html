@@ -16,7 +16,7 @@
         padding: 20px 0;
         border-bottom: 1px gray dashed;
       }
-      .separator .field {
+      .separator > .field {
         margin-bottom: 20px;
       }
     </style>
@@ -129,31 +129,55 @@
     <div class="separator">
       <table class="table">
         <thead>
-          <td>Id</td>
+          <td>
+            <fieldset class="field">
+              <input type="checkbox" name="name" />
+            </fieldset>
+            Id
+          </td>
           <td>Name</td>
           <td>Actions</td>
+          <td>State</td>
         </thead>
         <tbody>
           <tr>
-            <td>0001</td>
+            <td>
+              <fieldset class="field">
+                <input type="checkbox" name="name" />
+              </fieldset>
+              0001
+            </td>
             <td>José</td>
             <td>
               <i class="icon icon-trash"></i>
               <i class="icon icon-print"></i>
             </td>
+            <td>
+              <button class="btn btn-success __delivered">entregue</button>
+            </td>
           </tr>
           <tr>
-            <td>0002</td>
+            <td>
+              <fieldset class="field">
+                <input type="checkbox" name="name" />
+              </fieldset>
+              0002
+            </td>
             <td>Maria</td>
             <td>300400</td>
+            <td>
+              <button class="btn btn-warning __done">pronto</button>
+            </td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td></td>
             <td></td>
+            <td></td>
             <td>
-              <button class="btn btn-primary">button primary</button>
+              <button class="btn btn-primary">edit</button>
+              <button class="btn btn-cta">save</button>
             </td>
           </tr>
         </tfoot>

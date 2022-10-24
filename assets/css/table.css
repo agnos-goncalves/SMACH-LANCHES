@@ -11,6 +11,13 @@
 .table td {
   padding: 8px;
 }
+.table tfoot td {
+  padding: 12px 8px;
+}
 .table tbody tr:nth-child(even) {
   background-color: var(--cl-gray-200);
+}
+
+.table .field {
+  display: inline-block;
 }
