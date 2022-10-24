@@ -4,6 +4,7 @@
   display: block;
   padding: 20px;
   display: inline;
+  cursor: pointer;
 }
 
 .icon-close {
