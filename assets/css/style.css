@@ -30,18 +30,58 @@ body main {
   min-height: 700px;
 }
 
-/* STATE ALL ORDERS */
-body[state="all_orders"] .form-new-order {
+body .table {
   display: none;
 }
 
+.form {
+  display: none;
+}
+
+/* STATE ALL ORDERS */
+body[state="all_orders"] .form-add-order {
+  display: block;
+}
+body[state="all_orders"] .form-actions {
+  display: flex;
+}
 body[state="all_orders"] .form-actions .btn-group .btn {
   display: none;
 }
 body[state="all_orders"] .form-actions .btn-group .btn:first-child {
-  display: block;
+  display: inline-block;
+}
+body[state="all_orders"] .table-all-orders {
+  display: table;
 }
 
-body[state="all_orders"] .table-new-order {
+/* NEW ORDER */
+body[state="new_order"] .form-new-order {
+  display: block;
+}
+body[state="new_order"] .table-new-order {
+  display: table;
+}
+
+/* CHECKED ORDER */
+body[state="checked_order"] .form-add-order {
+  display: block;
+}
+body[state="checked_order"] .form-all-orders {
+  display: block;
+}
+body[state="checked_order"] .form-actions {
+  display: flex;
+}
+body[state="checked_order"] .form-actions > .row {
+  display: none;
+}
+body[state="checked_order"] .form-actions .btn-group .btn {
+  display: inline-block;
+}
+body[state="checked_order"] .form-actions .btn-group .btn:first-child {
+  display: none;
+}
+body[state="checked_order"] .table-all-orders {
   display: table;
 }
