@@ -14,6 +14,15 @@ window.onload = () => {
     ".form-new-order .btn-primary"
   );
   const buttonSaveOrders = document.querySelector(".table-new-order .btn-cta");
+  const buttonChooseTypeProduct = document.querySelectorAll(
+    ".form-new-order__product-type input"
+  );
+
+  buttonChooseTypeProduct.forEach((elementInputChoose) => {
+    elementInputChoose.addEventListener("click", () => {
+      alert(elementInputChoose.getAttribute("value"));
+    });
+  });
 
   buttonAddNewOrder.addEventListener("click", () => {
     e.preventDefault();
