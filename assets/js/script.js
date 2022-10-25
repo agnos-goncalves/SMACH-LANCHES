@@ -1,5 +1,56 @@
 const SMACH = {
-  products: [],
+  products: [
+    {
+      code: 1001,
+      product: "Super SMACH COMBO Programado – Hambúrguer + Fritas",
+      price: 55,
+    },
+    {
+      code: 1002,
+      product: "SMACH VariavelBurguer – Hambúrguer com bacon",
+      price: 45,
+    },
+    {
+      code: 1003,
+      product: "SMACH BUG EM PROD – Hambúrguer meio torto",
+      price: 25,
+    },
+    {
+      code: 1004,
+      product: "Combo Econômico SMACH Char 1 – Pão com Carne",
+      price: 15,
+    },
+    {
+      code: 1005,
+      product: "Especial SMACH CSS – Hambúrguer colorido e alinhado",
+      price: 65,
+    },
+    {
+      code: 2001,
+      product: "Refrigerante 350 ml",
+      price: 8,
+    },
+    {
+      code: 2002,
+      product: "Água 500 ml",
+      price: 5,
+    },
+    {
+      code: 2003,
+      product: "Suco 350 ml",
+      price: 7,
+    },
+    {
+      code: 3001,
+      product: "Sorvete 300 ml",
+      price: 15,
+    },
+    {
+      code: 3002,
+      product: "Sobremesa doce SMACH ARRAY",
+      price: 50,
+    },
+  ],
   new_ordes: [],
   orders: [],
 };
