@@ -1,0 +1,48 @@
+.form {
+  overflow: hidden;
+}
+
+.form .field {
+  margin-bottom: 20px;
+}
+.form > div > label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.form-new-order__search .btn {
+  padding: 8px 36px 8px 26px;
+}
+.form-new-order__search .icon {
+  margin-right: 10px;
+}
+
+.form-new-order__product-info .field:nth-of-type(2) {
+  padding: 0 16px;
+}
+
+@media only screen and (min-width: 769px) {
+  .form > .btn-primary {
+    float: right;
+  }
+
+  .form-new-order__search .field input {
+    max-width: 348px;
+    width: 60%;
+    margin-right: 16px;
+  }
+}
+
+/* TABLET  */
+@media only screen and (max-width: 768px) {
+  .form-new-order__search .field input {
+    margin-bottom: 10px;
+  }
+  .form-new-order__product-info .field:nth-of-type(2) {
+    padding: 0;
+  }
+  .form > .btn-primary {
+    display: block;
+    margin: 0 auto;
+  }
+}

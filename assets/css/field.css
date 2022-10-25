@@ -5,8 +5,8 @@
 .field input {
   cursor: pointer;
 }
-
 .field input[type="text"],
+.field input[type="number"],
 .field select {
   display: block;
   width: 100%;

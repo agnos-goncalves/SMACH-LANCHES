@@ -27,7 +27,44 @@
       </aside>
       <section class="col col-xs-12 col-md-12 col-9">
         <div class="page page-new-order">
-          <form class="form-new-order" action=""></form>
+          <form class="form form-new-order">
+            <div class="form-new-order__product-type">
+              <label>Tipo de Consumo</label>
+              <fieldset class="field">
+                <label for="name"><strong>Delivery</strong></label>
+                <input type="radio" name="name" />
+                <label for="name"><strong>Salão</strong></label>
+                <input type="radio" name="name" />
+              </fieldset>
+            </div>
+            <div class="form-new-order__search">
+              <label>Buscar produto</label>
+              <fieldset class="row field">
+                <input type="text" name="name" placeholder="Insert name" />
+                <button class="btn btn-primary-outline">
+                  <i class="icon icon-search"></i>
+                  Buscar
+                </button>
+              </fieldset>
+            </div>
+            <div class="row form-new-order__product-info">
+              <fieldset class="col col-xs-12 col-md-4 col-3 field">
+                <label for="">Quantidade</label>
+                <input type="number" name="quantity" placeholder="0" min=1/>
+              </fieldset>
+              <fieldset class="col col-xs-12 col-md-4 col-6 field">
+                <label for="">Produto</label>
+                <input type="text" name="name" placeholder="Nome do produto"/>
+              </fieldset>
+              <fieldset class="col col-xs-12 col-md-4 col-3 field">
+                <label for="">Preço</label>
+                <input type="number" name="price" placeholder="R$ 00,00" min=1 />
+              </fieldset>
+            </div>
+            <button class="btn btn-primary">
+              <i class="icon icon-plus"></i>Adicionar produto
+            </button>
+          </form>
           <table class="table table-new-order">
             <thead>
               <td>Código</td>

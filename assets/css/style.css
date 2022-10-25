@@ -28,3 +28,7 @@ body {
 body main {
   min-height: 700px;
 }
+
+.page .form {
+  margin-bottom: 20px;
+}

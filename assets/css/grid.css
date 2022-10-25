@@ -5,6 +5,10 @@
   flex-wrap: wrap;
 }
 
+.row.__justify-sb {
+  justify-content: space-between;
+}
+
 /* .row .col {
   padding: 5px;
   border: 1px solid red;
@@ -46,6 +50,13 @@
 }
 .col-1 {
   width: calc(var(--column-unit) * 1);
+}
+
+/*  DESKTOP */
+@media only screen and (min-width: 769px) {
+  .col.gp-lg {
+    padding: 0 12px;
+  }
 }
 
 /* TABLET */
