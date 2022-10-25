@@ -64,24 +64,24 @@ body[state="new_order"] .table-new-order {
 }
 
 /* CHECKED ORDER */
-body[state="checked_order"] .form-add-order {
+body[state="selected_orders"] .form-add-order {
   display: block;
 }
-body[state="checked_order"] .form-all-orders {
+body[state="selected_orders"] .form-all-orders {
   display: block;
 }
-body[state="checked_order"] .form-actions {
+body[state="selected_orders"] .form-actions {
   display: flex;
 }
-body[state="checked_order"] .form-actions > .row {
+body[state="selected_orders"] .form-actions > .row {
   display: none;
 }
-body[state="checked_order"] .form-actions .btn-group .btn {
+body[state="selected_orders"] .form-actions .btn-group .btn {
   display: inline-block;
 }
-body[state="checked_order"] .form-actions .btn-group .btn:first-child {
+body[state="selected_orders"] .form-actions .btn-group .btn:first-child {
   display: none;
 }
-body[state="checked_order"] .table-all-orders {
+body[state="selected_orders"] .table-all-orders {
   display: table;
 }
