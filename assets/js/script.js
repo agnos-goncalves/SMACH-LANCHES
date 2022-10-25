@@ -67,19 +67,22 @@ function findProduct(productCode) {
 }
 
 function addProductToNewOrder(product) {
-  const productFindedIndex = SMACH.newOrder.findIndex(
+  const productIndex = SMACH.newOrder.findIndex(
     (orderItem) => orderItem.code === product.code
   );
-  const productHasBeenAdded = productFindedIndex >= 0;
-
-  if (productHasBeenAdded) {
-    const productFinded = SMACH.newOrder[productFindedIndex];
+  const productFinded = SMACH.newOrder[productIndex];
+  if (productFinded) {
     productFinded.quantity += product.quantity;
-    productFinded.price = productFinded.quantity * product.price;
+    productFinded.total = productFinded.quantity * product.price;
   } else {
-    const price = product.quantity * product.price;
-    SMACH.newOrder.push({ ...product, price });
+    const total = product.quantity * product.price;
+    SMACH.newOrder.push({ ...product, total });
   }
+  return SMACH.newOrder;
+}
+
+function getTotalPriceToNewOrder() {
+  return SMACH.newOrder.reduce((total, product) => (total += product.total), 0);
 }
 
 function tableRender(tableSelector, items, columns) {
@@ -91,6 +94,9 @@ function tableRender(tableSelector, items, columns) {
     table.parentElement.classList.add("__empty");
     return;
   }
+
+  table.parentElement.classList.remove("__empty");
+
   items.forEach((item) => {
     template += "<tr>";
     columns.forEach((column) => {
@@ -101,6 +107,17 @@ function tableRender(tableSelector, items, columns) {
     template += "</tr>";
   });
   tbody.innerHTML = template;
+}
+function tableNewOrderRender(orderList) {
+  const tableTotal = document.querySelector(".table-new-order__total strong");
+  const priceTotal = getTotalPriceToNewOrder();
+  tableRender(".table-new-order", orderList, [
+    "code",
+    "name",
+    "quantity",
+    "total",
+  ]);
+  tableTotal.innerHTML = priceTotal;
 }
 
 function setFormValues(formSelector, fields) {
@@ -134,12 +151,19 @@ window.onload = () => {
   const buttonAddProductToOrder = document.querySelector(
     ".form-new-order .btn-primary"
   );
-  const buttonSaveOrders = document.querySelector(".table-new-order .btn-cta");
+
   const buttonChooseTypeProduct = document.querySelectorAll(
     ".form-new-order__product-type input"
   );
   const buttonSearchProduct = document.querySelector(
     ".form-new-order__search .btn"
+  );
+  const buttonSaveNewOrder = document.querySelector(
+    ".table-new-order .btn-cta"
+  );
+
+  const buttonCancelNewOrder = document.querySelector(
+    ".table-new-order .btn-cta-link"
   );
 
   buttonChooseTypeProduct.forEach((elementInputChoose) => {
@@ -194,18 +218,21 @@ window.onload = () => {
       getFormData(".form-new-order").get("productQuantity")
     );
     addProductToNewOrder({ ...productFinded, quantity });
-    tableRender(".table-new-order", SMACH.newOrder, [
-      "code",
-      "name",
-      "quantity",
-      "price",
-    ]);
+    tableNewOrderRender(SMACH.newOrder);
   });
 
-  buttonSaveOrders.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    changePage(PAGE_STATE.ALL_ORDERS);
+  buttonSaveNewOrder.addEventListener("click", (e) => {
+    if (!SMACH.newOrder.length) {
+      alert("adiciona algum produto no pedido");
+      return;
+    }
+
+    // changePage(PAGE_STATE.ALL_ORDERS);
+  });
+
+  buttonCancelNewOrder.addEventListener("click", (e) => {
+    location.reload();
+    changePage(PAGE_STATE.NEW_ORDER);
   });
 
   changePage(PAGE_STATE.NEW_ORDER);
