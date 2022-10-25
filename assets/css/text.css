@@ -17,3 +17,9 @@ strong.text,
   font-weight: bold;
   line-height: inherit;
 }
+
+.text-warning {
+  font-size: 26px;
+  text-align: center;
+  color: var(--cl-black-100);
+}

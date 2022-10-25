@@ -6,18 +6,53 @@
 .table thead {
   background-color: var(--cl-gray-300);
   font-weight: bold;
+  border-top: 1px solid var(--cl-gray-300);
+  border-bottom: 1px solid var(--cl-gray-300);
 }
 
 .table td {
   padding: 8px;
 }
-.table tfoot td {
-  padding: 12px 8px;
+.table tbody td {
+  color: var(--cl-black-200);
+  border-bottom: 1px solid var(--cl-gray-300);
 }
 .table tbody tr:nth-child(even) {
   background-color: var(--cl-gray-200);
 }
 
+.table tfoot .row {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table tfoot td {
+  padding: 40px 10px;
+}
+
 .table .field {
   display: inline-block;
+}
+
+.table-new-order.__empty {
+  height: 300px;
+  background-image: url("../img/items.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.table-new-order__total {
+  font-size: 22px;
+  color: var(--cl-text);
+}
+
+/* TABLET */
+
+@media only screen and (max-width: 768px) {
+  .table tfoot .row {
+    flex-direction: column;
+  }
+  .table tfoot .btn-group {
+    margin-top: 20px;
+  }
 }

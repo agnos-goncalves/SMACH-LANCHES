@@ -17,6 +17,11 @@
   font-weight: normal;
 }
 
+a.btn {
+  text-decoration: none;
+  background-color: transparent;
+}
+
 .btn .icon-plus {
   background-image: url(../img/svg/icon-plus-white.svg);
 }
@@ -28,7 +33,7 @@
 }
 
 .btn-default:active {
-  background-color: var(--cl-default-active);
+  background: var(--cl-default-active);
 }
 
 .btn-primary {
@@ -40,7 +45,7 @@
 }
 
 .btn-primary:active {
-  background-color: var(--cl-primary-active);
+  background: var(--cl-primary-active);
 }
 
 .btn-cta {
@@ -52,7 +57,19 @@
 }
 
 .btn-cta:active {
-  background-color: var(--cl-cta-active);
+  background: var(--cl-cta-active);
+}
+
+.btn-cta-link {
+  color: var(--cl-cta);
+}
+
+.btn-cta-link:hover {
+  color: var(--cl-cta-hover);
+}
+
+.btn-cta-link:active {
+  color: var(--cl-cta-active);
 }
 
 /* BUTTONS STATUS */
@@ -65,7 +82,7 @@
 }
 
 .btn-success:active {
-  background-color: var(--cl-success-active);
+  background: var(--cl-success-active);
 }
 
 .btn-warning {
@@ -77,7 +94,7 @@
 }
 
 .btn-warning:active {
-  background-color: var(--cl-warning-active);
+  background: var(--cl-warning-active);
 }
 
 .btn-error {
@@ -89,42 +106,42 @@
 }
 
 .btn-error:active {
-  background-color: var(--cl-error-active);
+  background: var(--cl-error-active);
 }
 
 /* STATUS */
 .btn-default.__received {
-  background-color: var(--cl-black-300);
+  background: var(--cl-black-300);
   color: var(--cl-black-600);
   border: 1px solid var(--cl-black-600);
 }
 .btn-default.__received:hover {
-  background-color: var(--cl-black-200);
+  background: var(--cl-black-200);
 }
 .btn-default.__received:active {
-  background-color: var(--cl-black-400);
+  background: var(--cl-black-400);
 }
 
 .btn-warning.__done {
-  background-color: var(--cl-yellow-300);
+  background: var(--cl-yellow-300);
   color: var(--cl-yellow-600);
   border: 1px solid var(--cl-yellow-600);
 }
 .btn-warning.__done:hover {
-  background-color: var(--cl-yellow-200);
+  background: var(--cl-yellow-200);
 }
 .btn-warning.__done:active {
-  background-color: var(--cl-yellow-400);
+  background: var(--cl-yellow-400);
 }
 
 .btn-success.__delivered {
-  background-color: var(--cl-green-300);
+  background: var(--cl-green-300);
   color: var(--cl-green-600);
   border: 1px solid var(--cl-green-600);
 }
 .btn-success.__delivered:hover {
-  background-color: var(--cl-green-200);
+  background: var(--cl-green-200);
 }
 .btn-success.__delivered:active {
-  background-color: var(--cl-green-400);
+  background: var(--cl-green-400);
 }
