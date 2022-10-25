@@ -48,6 +48,22 @@ a.btn {
   background: var(--cl-primary-active);
 }
 
+.btn-primary-outline {
+  background: transparent;
+  border: 1px solid var(--cl-primary);
+  color: var(--cl-primary);
+}
+
+.btn-primary-outline:hover {
+  background: var(--cl-primary-hover);
+  color: white;
+}
+
+.btn-primary-outline:active {
+  background: var(--cl-primary-active);
+  color: white;
+}
+
 .btn-cta {
   background: var(--cl-cta);
 }

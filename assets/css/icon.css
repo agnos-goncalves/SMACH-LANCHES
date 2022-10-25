@@ -30,6 +30,9 @@
 .icon-search {
   background-image: url(../img/svg/icon-search.svg);
 }
+.icon-search-primary {
+  background-image: url(../img/svg/icon-search-orange.svg);
+}
 
 .icon-trash {
   background-image: url(../img/svg/icon-trash.svg);

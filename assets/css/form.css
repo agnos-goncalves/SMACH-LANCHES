@@ -19,8 +19,12 @@
 .form-new-order__search .btn {
   padding: 8px 36px 8px 26px;
 }
-.form-new-order__search .icon {
+.form-new-order__search .icon-search-primary {
   margin-right: 10px;
+}
+
+.form-new-order__search .btn:hover .icon-search-primary {
+  background-image: url("../img/svg/icon-search-white.svg");
 }
 
 .form-new-order__product-info .field:nth-of-type(2) {
