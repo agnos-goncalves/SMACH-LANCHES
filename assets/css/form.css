@@ -35,6 +35,10 @@
 
 /* TABLET  */
 @media only screen and (max-width: 768px) {
+  .form-new-order__product-type {
+    text-align: center;
+  }
+
   .form-new-order__search .field input {
     margin-bottom: 10px;
   }
