@@ -4,6 +4,11 @@ const PAGE_STATE = {
   SELECTED_ORDERS: "selected_orders",
 };
 
+function getFormData(selector) {
+  const formData = new FormData(document.querySelector(selector));
+  return formData;
+}
+
 function changePage(pageState) {
   document.querySelector("body").setAttribute("state", pageState);
 }
@@ -17,11 +22,20 @@ window.onload = () => {
   const buttonChooseTypeProduct = document.querySelectorAll(
     ".form-new-order__product-type input"
   );
+  const buttonSearchProduct = document.querySelector(
+    ".form-new-order__search .btn"
+  );
 
   buttonChooseTypeProduct.forEach((elementInputChoose) => {
     elementInputChoose.addEventListener("click", () => {
       alert(elementInputChoose.getAttribute("value"));
     });
+  });
+
+  buttonSearchProduct.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    alert(getFormData(".form-new-order").get("productName"));
   });
 
   buttonAddNewOrder.addEventListener("click", () => {

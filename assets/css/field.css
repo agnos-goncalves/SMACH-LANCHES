@@ -7,6 +7,7 @@
 }
 .field input[type="text"],
 .field input[type="number"],
+.field input[type="search"],
 .field select {
   display: block;
   width: 100%;
