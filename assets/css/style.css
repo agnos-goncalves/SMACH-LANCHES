@@ -17,6 +17,7 @@
 @import url("./form.css");
 
 /* CONTAINERS */
+@import url("./page.css");
 @import url("./sidebar.css");
 @import url("./footer.css");
 
@@ -27,8 +28,4 @@ body {
 
 body main {
   min-height: 700px;
-}
-
-.page .form {
-  margin-bottom: 20px;
 }
