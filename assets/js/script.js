@@ -51,9 +51,17 @@ const SMACH = {
       price: 50,
     },
   ],
-  newOrder: [],
+  newOrder: {
+    products: [],
+  },
   orders: [],
   currentProduct: null,
+};
+
+const ORDER_STATE = {
+  DELIVERED: "delivered",
+  DONE: "done",
+  RECEIVED: "received",
 };
 
 const PAGE_STATE = {
@@ -62,27 +70,54 @@ const PAGE_STATE = {
   SELECTED_ORDERS: "selected_orders",
 };
 
+function uuid() {
+  return String(new Date().getTime()).slice(0, 8);
+}
+
 function findProduct(productCode) {
   return SMACH.products.find((product) => product.code === Number(productCode));
 }
 
 function addProductToNewOrder(product) {
-  const productIndex = SMACH.newOrder.findIndex(
+  const productIndex = SMACH.newOrder.products.findIndex(
     (orderItem) => orderItem.code === product.code
   );
-  const productFinded = SMACH.newOrder[productIndex];
+  const productFinded = SMACH.newOrder.products[productIndex];
   if (productFinded) {
     productFinded.quantity += product.quantity;
-    productFinded.total = productFinded.quantity * product.price;
+    productFinded.priceTotal = productFinded.quantity * product.price;
   } else {
-    const total = product.quantity * product.price;
-    SMACH.newOrder.push({ ...product, total });
+    const priceTotal = product.quantity * product.price;
+    SMACH.newOrder.products.push({ ...product, priceTotal });
   }
   return SMACH.newOrder;
 }
 
+function addOrder(newOrder) {
+  const name = newOrder.products.reduce(
+    (name, product) => (name += `${product.quantity} - ${product.name}`),
+    ""
+  );
+  const priceTotal = newOrder.products.reduce(
+    (priceTotal, product) => (priceTotal += product.priceTotal),
+    0
+  );
+
+  const order = {
+    id: uuid(),
+    name,
+    priceTotal,
+    status: ORDER_STATE.RECEIVED,
+    ...newOrder,
+  };
+  SMACH.orders.push(order);
+}
+
 function getTotalPriceToNewOrder() {
-  return SMACH.newOrder.reduce((total, product) => (total += product.total), 0);
+  return SMACH.newOrder.products.reduce(
+    (priceTotal, product) => (priceTotal += product.priceTotal),
+    0
+  );
 }
 
 function tableRender(tableSelector, items, columns) {
@@ -108,14 +143,14 @@ function tableRender(tableSelector, items, columns) {
   });
   tbody.innerHTML = template;
 }
-function tableNewOrderRender(orderList) {
+function tableNewOrderRender(newOrderList) {
   const tableTotal = document.querySelector(".table-new-order__total strong");
   const priceTotal = getTotalPriceToNewOrder();
-  tableRender(".table-new-order", orderList, [
+  tableRender(".table-new-order", newOrderList.products, [
     "code",
     "name",
     "quantity",
-    "total",
+    "priceTotal",
   ]);
   tableTotal.innerHTML = priceTotal;
 }
@@ -124,7 +159,7 @@ function setFormValues(formSelector, fields) {
   const form = document.querySelector(formSelector);
   Object.keys(fields).forEach((key) => {
     const value = fields[key];
-    console.log(key, value);
+
     form.querySelector(`[name="${key}"]`).setAttribute("value", value);
   });
 }
@@ -136,8 +171,9 @@ function getFormData(formSelector) {
 
 function formIsValid(formSelector, fieldsRequired) {
   const formData = getFormData(formSelector);
+
   const isFilledRequiredFields = fieldsRequired.every(
-    (field) => formData.get(field) !== ""
+    (field) => formData.get(field) !== "" && formData.get(field) !== null
   );
   return isFilledRequiredFields;
 }
@@ -152,9 +188,6 @@ window.onload = () => {
     ".form-new-order .btn-primary"
   );
 
-  const buttonChooseTypeProduct = document.querySelectorAll(
-    ".form-new-order__product-type input"
-  );
   const buttonSearchProduct = document.querySelector(
     ".form-new-order__search .btn"
   );
@@ -165,12 +198,6 @@ window.onload = () => {
   const buttonCancelNewOrder = document.querySelector(
     ".table-new-order .btn-cta-link"
   );
-
-  buttonChooseTypeProduct.forEach((elementInputChoose) => {
-    elementInputChoose.addEventListener("click", () => {
-      alert(elementInputChoose.getAttribute("value"));
-    });
-  });
 
   buttonSearchProduct.addEventListener("click", (e) => {
     e.preventDefault();
@@ -201,6 +228,7 @@ window.onload = () => {
     const productFinded = findProduct(productCode);
     const isValidForm = formIsValid(".form-new-order", [
       "productName",
+      "orderType",
       "productQuantity",
       "productPrice",
     ]);
@@ -222,12 +250,23 @@ window.onload = () => {
   });
 
   buttonSaveNewOrder.addEventListener("click", (e) => {
-    if (!SMACH.newOrder.length) {
+    if (!SMACH.newOrder.products.length) {
       alert("adiciona algum produto no pedido");
       return;
     }
+    addOrder({
+      ...SMACH.newOrder,
+      type: getFormData(".form-new-order").get("orderType"),
+    });
 
-    // changePage(PAGE_STATE.ALL_ORDERS);
+    tableRender(".table-all-orders", SMACH.orders, [
+      "id",
+      "name",
+      "type",
+      "priceTotal",
+      "status",
+    ]);
+    changePage(PAGE_STATE.ALL_ORDERS);
   });
 
   buttonCancelNewOrder.addEventListener("click", (e) => {
