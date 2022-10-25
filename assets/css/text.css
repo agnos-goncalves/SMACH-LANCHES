@@ -1,3 +1,9 @@
+.title {
+  font-family: "Barlow", sans-serif;
+  font-weight: 700;
+  color: var(--cl-black-500);
+}
+
 p.text {
   font-size: var(--fns-default);
   color: var(--cl-text);
