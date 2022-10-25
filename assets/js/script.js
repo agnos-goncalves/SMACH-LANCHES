@@ -2,57 +2,58 @@ const SMACH = {
   products: [
     {
       code: 1001,
-      product: "Super SMACH COMBO Programado – Hambúrguer + Fritas",
+      name: "Super SMACH COMBO Programado – Hambúrguer + Fritas",
       price: 55,
     },
     {
       code: 1002,
-      product: "SMACH VariavelBurguer – Hambúrguer com bacon",
+      name: "SMACH VariavelBurguer – Hambúrguer com bacon",
       price: 45,
     },
     {
       code: 1003,
-      product: "SMACH BUG EM PROD – Hambúrguer meio torto",
+      name: "SMACH BUG EM PROD – Hambúrguer meio torto",
       price: 25,
     },
     {
       code: 1004,
-      product: "Combo Econômico SMACH Char 1 – Pão com Carne",
+      name: "Combo Econômico SMACH Char 1 – Pão com Carne",
       price: 15,
     },
     {
       code: 1005,
-      product: "Especial SMACH CSS – Hambúrguer colorido e alinhado",
+      name: "Especial SMACH CSS – Hambúrguer colorido e alinhado",
       price: 65,
     },
     {
       code: 2001,
-      product: "Refrigerante 350 ml",
+      name: "Refrigerante 350 ml",
       price: 8,
     },
     {
       code: 2002,
-      product: "Água 500 ml",
+      name: "Água 500 ml",
       price: 5,
     },
     {
       code: 2003,
-      product: "Suco 350 ml",
+      name: "Suco 350 ml",
       price: 7,
     },
     {
       code: 3001,
-      product: "Sorvete 300 ml",
+      name: "Sorvete 300 ml",
       price: 15,
     },
     {
       code: 3002,
-      product: "Sobremesa doce SMACH ARRAY",
+      name: "Sobremesa doce SMACH ARRAY",
       price: 50,
     },
   ],
-  new_ordes: [],
+  newOrder: [],
   orders: [],
+  currentProduct: null,
 };
 
 const PAGE_STATE = {
@@ -61,6 +62,26 @@ const PAGE_STATE = {
   SELECTED_ORDERS: "selected_orders",
 };
 
+function findProduct(productCode) {
+  return SMACH.products.find((product) => product.code === Number(productCode));
+}
+
+function addProductToNewOrder(product) {
+  const productFindedIndex = SMACH.newOrder.findIndex(
+    (orderItem) => orderItem.code === product.code
+  );
+  const productHasBeenAdded = productFindedIndex >= 0;
+
+  if (productHasBeenAdded) {
+    const productFinded = SMACH.newOrder[productFindedIndex];
+    productFinded.quantity += product.quantity;
+    productFinded.price = productFinded.quantity * product.price;
+  } else {
+    const price = product.quantity * product.price;
+    SMACH.newOrder.push({ ...product, price });
+  }
+}
+
 function tableRender(tableSelector, items, columns) {
   const table = document.querySelector(tableSelector);
   const tbody = table.querySelector("tbody");
@@ -68,16 +89,27 @@ function tableRender(tableSelector, items, columns) {
 
   if (items.length == 0) {
     table.parentElement.classList.add("__empty");
+    return;
   }
   items.forEach((item) => {
+    template += "<tr>";
     columns.forEach((column) => {
-      let propValue = item[column];
+      let propValue = String(item[column]);
       const className = `row-${column} __${propValue.replaceAll(" ", "-")}`;
       template += `<td class="${className}">${propValue}</td>`;
     });
+    template += "</tr>";
   });
-
   tbody.innerHTML = template;
+}
+
+function setFormValues(formSelector, fields) {
+  const form = document.querySelector(formSelector);
+  Object.keys(fields).forEach((key) => {
+    const value = fields[key];
+    console.log(key, value);
+    form.querySelector(`[name="${key}"]`).setAttribute("value", value);
+  });
 }
 
 function getFormData(formSelector) {
@@ -119,7 +151,17 @@ window.onload = () => {
   buttonSearchProduct.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    alert(getFormData(".form-new-order").get("productFind"));
+    const productCodeFinded = getFormData(".form-new-order").get("productFind");
+    const product = findProduct(productCodeFinded);
+    if (product) {
+      setFormValues(".form-new-order", {
+        productName: product.name,
+        productQuantity: 1,
+        productPrice: product.price,
+      });
+    } else {
+      alert("Produto nao encontrado insira um codigo valido");
+    }
   });
 
   buttonAddNewOrder.addEventListener("click", () => {
@@ -131,17 +173,33 @@ window.onload = () => {
   buttonAddProductToOrder.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
+    const productCode = getFormData(".form-new-order").get("productFind");
+    const productFinded = findProduct(productCode);
     const isValidForm = formIsValid(".form-new-order", [
       "productName",
       "productQuantity",
       "productPrice",
     ]);
 
-    if (isValidForm) {
-      alert("form valido");
-    } else {
-      alert("preencha todos os campos");
+    if (!productFinded) {
+      alert("produto nao encontrado");
+      return;
     }
+    if (!isValidForm) {
+      alert("preencha todos os campos");
+      return;
+    }
+
+    const quantity = Number(
+      getFormData(".form-new-order").get("productQuantity")
+    );
+    addProductToNewOrder({ ...productFinded, quantity });
+    tableRender(".table-new-order", SMACH.newOrder, [
+      "code",
+      "name",
+      "quantity",
+      "price",
+    ]);
   });
 
   buttonSaveOrders.addEventListener("click", (e) => {
@@ -151,17 +209,4 @@ window.onload = () => {
   });
 
   changePage(PAGE_STATE.NEW_ORDER);
-  tableRender(
-    ".table-new-order",
-    [
-      {
-        name: "1",
-        price: "1",
-        quantity: "1",
-        state: "1",
-      },
-    ],
-    ["name", "price", "quantity", "state"]
-  );
-  // tableRender(".table-new-order", [], ["name", "price", "quantity", "state"]);
 };
