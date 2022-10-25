@@ -59,6 +59,38 @@ a.btn {
   color: white;
 }
 
+.btn-primary-outline .icon-search {
+  background-image: url("../img/svg/icon-search-orange.svg");
+}
+.btn-primary-outline .icon-trash {
+  background-image: url("../img/svg/icon-trash-orange.svg");
+}
+.btn-primary-outline .icon-print {
+  background-image: url("../img/svg/icon-print-orange.svg");
+}
+.btn-primary-outline .icon-plus {
+  background-image: url("../img/svg/icon-plus-orange.svg");
+}
+.btn-primary-outline .icon-edit {
+  background-image: url("../img/svg/icon-edit-orange.svg");
+}
+
+.btn-primary-outline:hover .icon-search {
+  background-image: url("../img/svg/icon-search-white.svg");
+}
+.btn-primary-outline:hover .icon-trash {
+  background-image: url("../img/svg/icon-trash-white.svg");
+}
+.btn-primary-outline:hover .icon-print {
+  background-image: url("../img/svg/icon-print-white.svg");
+}
+.btn-primary-outline:hover .icon-plus {
+  background-image: url("../img/svg/icon-plus-white.svg");
+}
+.btn-primary-outline:hover .icon-edit {
+  background-image: url("../img/svg/icon-edit-white.svg");
+}
+
 .btn-primary-outline:active {
   background: var(--cl-primary-active);
   color: white;
@@ -160,4 +192,23 @@ a.btn {
 }
 .btn-success.__delivered:active {
   background: var(--cl-green-400);
+}
+
+/*  DESKTOP */
+@media only screen and (min-width: 769px) {
+  .btn-group .btn {
+    margin-left: 8px;
+  }
+}
+
+/* TABLET */
+
+@media only screen and (max-width: 768px) {
+  .btn-group .btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 4px;
+  }
 }

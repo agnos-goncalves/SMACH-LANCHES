@@ -23,10 +23,6 @@
   margin-right: 10px;
 }
 
-.form-new-order__search .btn:hover .icon-search-primary {
-  background-image: url("../img/svg/icon-search-white.svg");
-}
-
 .form-new-order__product-info .field:nth-of-type(2) {
   padding: 0 16px;
 }
@@ -41,6 +37,17 @@
     max-width: 348px;
     width: 60%;
     margin-right: 16px;
+  }
+  .form-actions {
+    display: flex;
+    align-items: center;
+  }
+  .form-actions > .row {
+    flex: 1;
+  }
+
+  .form-actions .field {
+    margin-right: 21px;
   }
 }
 
@@ -63,5 +70,12 @@
   .form > .btn-primary {
     display: block;
     margin: 0 auto;
+  }
+
+  .form-actions .field:nth-last-of-type(even) {
+    padding-right: 8px;
+  }
+  .form-actions .field:nth-last-of-type(odd) {
+    padding-left: 8px;
   }
 }
