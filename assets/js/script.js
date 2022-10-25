@@ -1,17 +1,36 @@
+const SMACH = {
+  products: [],
+  new_ordes: [],
+  orders: [],
+};
+
 const PAGE_STATE = {
   ALL_ORDERS: "all_orders",
   NEW_ORDER: "new_order",
   SELECTED_ORDERS: "selected_orders",
 };
 
-function getFormData(selector) {
-  const formData = new FormData(document.querySelector(selector));
+function tableRender(tableSelector, items, columns) {
+  const tableContent = document.querySelector(`${tableSelector} tbody`);
+  let template = "";
+  items.forEach((item) => {
+    columns.forEach((column) => {
+      let propValue = item[column];
+      const className = `row-${column} __${propValue.replaceAll(" ", "-")}`;
+      template += `<td class="${className}">${propValue}</td>`;
+    });
+  });
+  tableContent.innerHTML = template;
+}
+
+function getFormData(formSelector) {
+  const formData = new FormData(document.querySelector(formSelector));
   return formData;
 }
 
-function formIsValid(selector, fields) {
-  const formData = getFormData(selector);
-  const isFilledRequiredFields = fields.every(
+function formIsValid(formSelector, fieldsRequired) {
+  const formData = getFormData(formSelector);
+  const isFilledRequiredFields = fieldsRequired.every(
     (field) => formData.get(field) !== ""
   );
   return isFilledRequiredFields;
@@ -75,4 +94,16 @@ window.onload = () => {
   });
 
   changePage(PAGE_STATE.NEW_ORDER);
+  tableRender(
+    ".table-new-order",
+    [
+      {
+        name: "item name",
+        price: "item price",
+        quantity: "item quantity",
+        state: "item state",
+      },
+    ],
+    ["name", "price", "quantity", "state"]
+  );
 };
