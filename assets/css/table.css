@@ -34,11 +34,22 @@
   display: inline-block;
 }
 
-.table-new-order.__empty {
-  height: 300px;
+.table-wrap .text-warning {
+  display: none;
+}
+
+.table-wrap.__empty .table {
+  height: 240px;
   background-image: url("../img/items.png");
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: bottom;
+}
+.table-wrap.__empty tfoot {
+  display: none;
+}
+
+.table-wrap.__empty .text-warning {
+  display: block;
 }
 
 .table-new-order__total {

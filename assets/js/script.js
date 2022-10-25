@@ -11,8 +11,13 @@ const PAGE_STATE = {
 };
 
 function tableRender(tableSelector, items, columns) {
-  const tableContent = document.querySelector(`${tableSelector} tbody`);
+  const table = document.querySelector(tableSelector);
+  const tbody = table.querySelector("tbody");
   let template = "";
+
+  if (items.length == 0) {
+    table.parentElement.classList.add("__empty");
+  }
   items.forEach((item) => {
     columns.forEach((column) => {
       let propValue = item[column];
@@ -20,7 +25,8 @@ function tableRender(tableSelector, items, columns) {
       template += `<td class="${className}">${propValue}</td>`;
     });
   });
-  tableContent.innerHTML = template;
+
+  tbody.innerHTML = template;
 }
 
 function getFormData(formSelector) {
@@ -98,12 +104,13 @@ window.onload = () => {
     ".table-new-order",
     [
       {
-        name: "item name",
-        price: "item price",
-        quantity: "item quantity",
-        state: "item state",
+        name: "1",
+        price: "1",
+        quantity: "1",
+        state: "1",
       },
     ],
     ["name", "price", "quantity", "state"]
   );
+  // tableRender(".table-new-order", [], ["name", "price", "quantity", "state"]);
 };
