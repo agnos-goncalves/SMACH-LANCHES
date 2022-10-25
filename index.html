@@ -37,15 +37,15 @@
               <label>Tipo de Consumo</label>
               <fieldset class="field">
                 <label for="productType"><strong>Delivery</strong></label>
-                <input type="radio" name="productType" value="delivery" />
+                <input type="radio" name="productType" value="delivery" required />
                 <label for="name"><strong>Salão</strong></label>
-                <input type="radio" name="productType"  value="salao" />
+                <input type="radio" name="productType"  value="salao" required />
               </fieldset>
             </div>
             <div class="form-new-order__search">
               <label>Buscar produto</label>
               <fieldset class="row field">
-                <input type="search" name="productName" placeholder="Insert name" />
+                <input type="search" name="productFind" placeholder="Insert name" />
                 <button class="btn btn-primary-outline">
                   <i class="icon icon-search"></i>
                   Buscar
@@ -54,16 +54,16 @@
             </div>
             <div class="row form-new-order__product-info">
               <fieldset class="col col-xs-12 col-md-4 col-3 field">
-                <label for="">Quantidade</label>
-                <input type="number" name="quantity" placeholder="0" min=1/>
+                <label for="productQuantity">Quantidade</label>
+                <input type="number" name="productQuantity" placeholder="0" min=1/>
               </fieldset>
               <fieldset class="col col-xs-12 col-md-4 col-6 field">
-                <label for="">Produto</label>
-                <input type="text" name="name" placeholder="Nome do produto"/>
+                <label for="productName">Produto</label>
+                <input type="text" name="productName" placeholder="Nome do produto"/>
               </fieldset>
               <fieldset class="col col-xs-12 col-md-4 col-3 field">
-                <label for="">Preço</label>
-                <input type="number" name="price" placeholder="R$ 00,00" min=1 />
+                <label for=productPrice"">Preço</label>
+                <input type="number" name="productPrice" placeholder="R$ 00,00" min=1 />
               </fieldset>
             </div>
             <button class="btn btn-primary">

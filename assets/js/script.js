@@ -9,6 +9,14 @@ function getFormData(selector) {
   return formData;
 }
 
+function formIsValid(selector, fields) {
+  const formData = getFormData(selector);
+  const isFilledRequiredFields = fields.every(
+    (field) => formData.get(field) !== ""
+  );
+  return isFilledRequiredFields;
+}
+
 function changePage(pageState) {
   document.querySelector("body").setAttribute("state", pageState);
 }
@@ -35,7 +43,7 @@ window.onload = () => {
   buttonSearchProduct.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    alert(getFormData(".form-new-order").get("productName"));
+    alert(getFormData(".form-new-order").get("productFind"));
   });
 
   buttonAddNewOrder.addEventListener("click", () => {
@@ -47,7 +55,17 @@ window.onload = () => {
   buttonAddProductToOrder.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    alert();
+    const isValidForm = formIsValid(".form-new-order", [
+      "productName",
+      "productQuantity",
+      "productPrice",
+    ]);
+
+    if (isValidForm) {
+      alert("form valido");
+    } else {
+      alert("preencha todos os campos");
+    }
   });
 
   buttonSaveOrders.addEventListener("click", (e) => {
