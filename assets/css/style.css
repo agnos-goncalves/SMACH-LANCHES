@@ -29,3 +29,19 @@ body {
 body main {
   min-height: 700px;
 }
+
+/* STATE ALL ORDERS */
+body[state="all_orders"] .form-new-order {
+  display: none;
+}
+
+body[state="all_orders"] .form-actions .btn-group .btn {
+  display: none;
+}
+body[state="all_orders"] .form-actions .btn-group .btn:first-child {
+  display: block;
+}
+
+body[state="all_orders"] .table-new-order {
+  display: table;
+}
