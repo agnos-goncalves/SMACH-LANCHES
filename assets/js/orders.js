@@ -79,7 +79,7 @@ function addNewOrderInOrder(newOrder) {
     status: ORDER_STATE.RECEIVED,
     ...newOrder,
   };
-  SMACH.orders.push(order);
+  SMACH.orders.unshift(order);
   SMACH.newOrder.products = [];
 }
 
