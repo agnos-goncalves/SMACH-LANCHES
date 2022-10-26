@@ -40,4 +40,6 @@ window.onload = () => {
     location.reload();
     changePage(PAGE_STATE.NEW_ORDER);
   });
+  changePage(PAGE_STATE.ALL_ORDERS);
+  tableOrdersRender();
 };

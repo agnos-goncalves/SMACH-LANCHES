@@ -30,7 +30,7 @@ body main {
   min-height: 700px;
 }
 
-body .table {
+body .table-wrap {
   display: none;
 }
 
@@ -51,19 +51,19 @@ body[state="all_orders"] .form-actions .btn-group .btn {
 body[state="all_orders"] .form-actions .btn-group .btn:first-child {
   display: inline-block;
 }
-body[state="all_orders"] .table-all-orders {
-  display: table;
+body[state="all_orders"] .table-wrap.__all-orders {
+  display: block;
 }
 
 /* NEW ORDER */
 body[state="new_order"] .form-new-order {
   display: block;
 }
-body[state="new_order"] .table-new-order {
-  display: table;
+body[state="new_order"] .table-wrap.__new-order {
+  display: block;
 }
 
-/* CHECKED ORDER */
+/* SELECTED ORDER */
 body[state="selected_orders"] .form-add-order {
   display: block;
 }
@@ -82,6 +82,6 @@ body[state="selected_orders"] .form-actions .btn-group .btn {
 body[state="selected_orders"] .form-actions .btn-group .btn:first-child {
   display: none;
 }
-body[state="selected_orders"] .table-all-orders {
-  display: table;
+body[state="selected_orders"] .table-wrap.__all-orders {
+  display: block;
 }

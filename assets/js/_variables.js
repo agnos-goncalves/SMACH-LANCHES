@@ -55,7 +55,6 @@ const SMACH = {
     products: [],
   },
   orders: [],
-  currentProduct: null,
 };
 
 const ORDER_STATE = {
