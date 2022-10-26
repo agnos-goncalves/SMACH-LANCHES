@@ -39,8 +39,7 @@ window.onload = () => {
   });
 
   buttonCancelNewOrder.addEventListener("click", (e) => {
-    location.reload();
-    changePage(PAGE_STATE.NEW_ORDER);
+    changePage(PAGE_STATE.ALL_ORDERS);
   });
 
   filtersOrder.forEach((select) => {
