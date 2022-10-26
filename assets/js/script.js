@@ -136,8 +136,7 @@ function tableRender(tableSelector, items, columns) {
     template += "<tr>";
     columns.forEach((column) => {
       let propValue = String(item[column]);
-      const className = `row-${column} __${propValue.replaceAll(" ", "-")}`;
-      template += `<td class="${className}">${propValue}</td>`;
+      template += `<td class="row-${column}">${propValue}</td>`;
     });
     template += "</tr>";
   });
@@ -153,6 +152,26 @@ function tableNewOrderRender(newOrderList) {
     "priceTotal",
   ]);
   tableTotal.innerHTML = priceTotal;
+}
+function tableRenderOrders(orders) {
+  const btn = {
+    received: "btn btn-default __received",
+    done: "btn btn-warning __done",
+    delivered: "btn btn-success.__delivered",
+  };
+  const ordersMapped = orders.map((order) => ({
+    ...order,
+    id: `<input type="checkbox" />${order.id}`,
+    status: `<button class="${btn[order.status]}">${order.status}</button>`,
+  }));
+
+  tableRender(".table-all-orders", ordersMapped, [
+    "id",
+    "name",
+    "type",
+    "priceTotal",
+    "status",
+  ]);
 }
 
 function setFormValues(formSelector, fields) {
@@ -258,14 +277,9 @@ window.onload = () => {
       ...SMACH.newOrder,
       type: getFormData(".form-new-order").get("orderType"),
     });
+    SMACH.newOrder = [];
 
-    tableRender(".table-all-orders", SMACH.orders, [
-      "id",
-      "name",
-      "type",
-      "priceTotal",
-      "status",
-    ]);
+    tableRenderOrders(SMACH.orders);
     changePage(PAGE_STATE.ALL_ORDERS);
   });
 
