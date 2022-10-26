@@ -153,16 +153,29 @@ function tableNewOrderRender(newOrderList) {
   ]);
   tableTotal.innerHTML = priceTotal;
 }
+
+function tableOrdersListeners() {
+  const buttons = document.querySelectorAll(".table-all-orders .btn.__event");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.getAttribute("order-id");
+      const orders = changeOrderStatus(productId);
+      tableRenderOrders(orders);
+    });
+  });
+}
 function tableRenderOrders(orders) {
   const btn = {
-    received: "btn btn-default __received",
-    done: "btn btn-warning __done",
-    delivered: "btn btn-success.__delivered",
+    received: "btn btn-default __event __received",
+    done: "btn btn-warning __event __done",
+    delivered: "btn btn-success __delivered",
   };
   const ordersMapped = orders.map((order) => ({
     ...order,
-    id: `<input type="checkbox" />${order.id}`,
-    status: `<button class="${btn[order.status]}">${order.status}</button>`,
+    id: `<input class="row-field-checkbox" type="checkbox" />${order.id}`,
+    status: `<button order-id="${order.id}" class="${btn[order.status]}">${
+      order.status
+    }</button>`,
   }));
 
   tableRender(".table-all-orders", ordersMapped, [
@@ -172,6 +185,24 @@ function tableRenderOrders(orders) {
     "priceTotal",
     "status",
   ]);
+
+  tableOrdersListeners();
+}
+
+function changeOrderStatus(orderId) {
+  const getStatus = {
+    [ORDER_STATE.RECEIVED]: ORDER_STATE.DONE,
+    [ORDER_STATE.DONE]: ORDER_STATE.DELIVERED,
+    [ORDER_STATE.DELIVERED]: ORDER_STATE.DELIVERED,
+  };
+
+  SMACH.orders = SMACH.orders.map((order) => {
+    if (order.id === orderId) {
+      return { ...order, status: getStatus[order.status] };
+    }
+    return order;
+  });
+  return SMACH.orders;
 }
 
 function setFormValues(formSelector, fields) {
