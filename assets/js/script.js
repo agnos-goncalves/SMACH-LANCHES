@@ -13,6 +13,8 @@ window.onload = () => {
     ".table-new-order .btn-cta-link"
   );
 
+  const filtersOrder = document.querySelectorAll(".form-actions select");
+
   buttonAddNewOrder.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -40,6 +42,16 @@ window.onload = () => {
     location.reload();
     changePage(PAGE_STATE.NEW_ORDER);
   });
+
+  filtersOrder.forEach((select) => {
+    select.addEventListener("change", (e) => {
+      const orderType = filtersOrder[0].value;
+      const orderStatus = filtersOrder[1].value;
+      const orders = getOrdersListFiltered(orderType, orderStatus);
+      tableOrdersRender(orders);
+    });
+  });
+
   changePage(PAGE_STATE.ALL_ORDERS);
   tableOrdersRender();
 };

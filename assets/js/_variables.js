@@ -54,7 +54,7 @@ const SMACH = {
   newOrder: {
     products: [],
   },
-  orders: [],
+  orders: ordersMocked,
 };
 
 const ORDER_STATE = {

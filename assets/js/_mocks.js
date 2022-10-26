@@ -3,7 +3,7 @@ const ordersMocked = [
     id: "16668249",
     name: "1 - Super SMACH COMBO Programado – Hambúrguer + Fritas",
     priceTotal: 55,
-    status: "done",
+    status: "received",
     products: [
       {
         code: 1001,
@@ -19,7 +19,7 @@ const ordersMocked = [
     id: "16668241",
     name: "1 - Super SMACH COMBO Programado – Hambúrguer + Fritas",
     priceTotal: 55,
-    status: "done",
+    status: "delivered",
     products: [
       {
         code: 1001,
@@ -45,6 +45,6 @@ const ordersMocked = [
         priceTotal: 55,
       },
     ],
-    type: "delivery",
+    type: "salao",
   },
 ];

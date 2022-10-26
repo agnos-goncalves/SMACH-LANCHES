@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100;300;400;500;700&family=Inter&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="./assets/js/_mocks.js"></script>
     <script src="./assets/js/_variables.js"></script>
     <script src="./assets/js/_utils.js"></script>
     <script src="./assets/js/_products.js"></script>
@@ -78,17 +79,18 @@
             <div class="row">
               <label class="col-12" for="name">Filtrar por:</label>
               <fieldset class="col col-xs-6 col-md-6 col-2 field">
-                <select>
-                  <option>Default</option>
+                <select name="orderType">
+                  <option value="all">Tipo</option>
                   <option value="delivery">Delivery</option>
                   <option value="salao">Salão</option>
                 </select>
               </fieldset>
               <fieldset class="col col-xs-6 col-md-6 col-2 field">
-                <select>
-                  <option>Default</option>
-                  <option value="delivery">Delivery</option>
-                  <option value="salao">Salão</option>
+                <select name="orderStatus">
+                  <option value="all">Status</option>
+                  <option value="received">Recebido</option>
+                  <option value="done">Pronto</option>
+                  <option value="delivered">Entregue</option>
                 </select>
               </fieldset>
             </div>

@@ -1,5 +1,5 @@
 function uuid() {
-  return String(new Date().getTime(4, 13));
+  return String(new Date().getTime()).slice(4, 13);
 }
 
 function setFormData(formSelector, fields) {

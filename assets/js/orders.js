@@ -9,17 +9,22 @@ function tableOrdersListeners() {
   });
 }
 
-function tableOrdersRender() {
+function tableOrdersRender(orders = SMACH.orders) {
   const btn = {
     received: "btn btn-default __event __received",
     done: "btn btn-warning __event __done",
     delivered: "btn btn-success __delivered",
   };
-  const ordersMapped = SMACH.orders.map((order) => ({
+  const legend = {
+    received: "recebido",
+    done: "pronto",
+    delivered: "entregue",
+  };
+  const ordersMapped = orders.map((order) => ({
     ...order,
     id: `<input class="row-field-checkbox" type="checkbox" />${order.id}`,
     status: `<button order-id="${order.id}" class="${btn[order.status]}">${
-      order.status
+      legend[order.status]
     }</button>`,
   }));
 
@@ -148,6 +153,16 @@ function addProductToNewOrderList() {
     productQuantity: "",
     productPrice: "",
   });
+}
+
+function getOrdersListFiltered(type, status) {
+  let ordersFiltered = SMACH.orders.filter(
+    (order) => order.type === type || type === "all"
+  );
+  ordersFiltered = ordersFiltered.filter(
+    (order) => order.status === status || status === "all"
+  );
+  return ordersFiltered;
 }
 
 function tableNewOrderRender() {
