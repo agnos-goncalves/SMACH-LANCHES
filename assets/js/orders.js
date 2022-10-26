@@ -115,7 +115,7 @@ function searchProductAndFillFormNewOrder() {
 function addNewOrderToOrderList() {
   if (!SMACH.newOrder.products.length) {
     alert("adiciona algum produto no pedido");
-    return;
+    return false;
   }
   addNewOrderInOrder({
     ...SMACH.newOrder,
@@ -123,6 +123,7 @@ function addNewOrderToOrderList() {
   });
   tableNewOrderRender();
   tableOrdersRender();
+  return true;
 }
 
 function addProductToNewOrderList() {

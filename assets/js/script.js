@@ -34,8 +34,10 @@ window.onload = () => {
   });
 
   buttonSaveNewOrder.addEventListener("click", (e) => {
-    addNewOrderToOrderList();
-    changePage(PAGE_STATE.ALL_ORDERS);
+    const operationFinished = addNewOrderToOrderList();
+    if (operationFinished) {
+      changePage(PAGE_STATE.ALL_ORDERS);
+    }
   });
 
   buttonCancelNewOrder.addEventListener("click", (e) => {
