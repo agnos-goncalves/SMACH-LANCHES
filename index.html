@@ -78,26 +78,28 @@
           <form class="form form-actions">
             <div class="row">
               <label class="col-12" for="name">Filtrar por:</label>
-              <fieldset class="col col-xs-6 col-md-6 col-2 field">
-                <select name="orderType">
-                  <option value="all">Tipo</option>
-                  <option value="delivery">Delivery</option>
-                  <option value="salao">Salão</option>
-                </select>
-              </fieldset>
-              <fieldset class="col col-xs-6 col-md-6 col-2 field">
-                <select name="orderStatus">
-                  <option value="all">Status</option>
-                  <option value="received">Recebido</option>
-                  <option value="done">Pronto</option>
-                  <option value="delivered">Entregue</option>
-                </select>
-              </fieldset>
-            </div>
-            <div class="btn-group">
-              <button class="btn btn-primary-outline"><i class="icon icon-print"></i>Imprimir</button>
-              <button class="btn btn-primary-outline"><i class="icon icon-edit"></i>Editar</button>
-              <button class="btn btn-primary-outline"><i class="icon icon-trash"></i>Deletar</button>
+              <div class="row col col-xs-12 col-md-12 col-4 form-actions_fields">
+                <fieldset class="col col-xs-6 col-md-6 col-5 field">
+                  <select name="orderType">
+                    <option value="all">Tipo</option>
+                    <option value="delivery">Delivery</option>
+                    <option value="salao">Salão</option>
+                  </select>
+                </fieldset>
+                <fieldset class="col col-xs-6 col-md-6 col-5 field">
+                  <select name="orderStatus">
+                    <option value="all">Status</option>
+                    <option value="received">Recebido</option>
+                    <option value="done">Pronto</option>
+                    <option value="delivered">Entregue</option>
+                  </select>
+                </fieldset>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-primary-outline"><i class="icon icon-print"></i>Imprimir</button>
+                <button class="btn btn-primary-outline"><i class="icon icon-edit"></i>Editar</button>
+                <button class="btn btn-primary-outline"><i class="icon icon-trash"></i>Deletar</button>
+              </div>
             </div>
           </form>
           <div class="table-wrap __new-order">

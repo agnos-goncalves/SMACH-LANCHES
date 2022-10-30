@@ -194,15 +194,7 @@ a.btn {
   background: var(--cl-green-400);
 }
 
-/*  DESKTOP */
-@media only screen and (min-width: 769px) {
-  .btn-group .btn {
-    margin-right: 8px;
-  }
-}
-
 /* TABLET */
-
 @media only screen and (max-width: 768px) {
   .btn-group .btn {
     display: block;

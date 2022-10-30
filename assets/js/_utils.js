@@ -2,6 +2,13 @@ function uuid() {
   return String(new Date().getTime()).slice(4, 13);
 }
 
+function updateSidebarDate() {
+  // const day = new Date().getDay();
+  // const month = new Date().getMonth() + 1;
+  // const date = new Date().getDate();
+  // const date = new Date().getDate();
+}
+
 function setFormData(formSelector, fields) {
   const form = document.querySelector(formSelector);
   Object.keys(fields).forEach((key) => {
