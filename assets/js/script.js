@@ -22,6 +22,8 @@ window.onload = () => {
     '.table-all-orders thead input[type="checkbox"]'
   );
 
+  const closeButtonNotify = document.querySelector(".notify .icon-close");
+
   buttonAddNewOrder.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -82,8 +84,13 @@ window.onload = () => {
     deleteOrdersChecked();
   });
 
+  closeButtonNotify.addEventListener("click", () => {
+    notify("none");
+  });
+
   changePage(PAGE_STATE.ALL_ORDERS);
   updateSidebarDate();
+  notify("success");
   // SMACH.newOrder = newOrderMocked;
   // tableOrderRender(SMACH.newOrder);
 };

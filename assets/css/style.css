@@ -33,6 +33,16 @@ body main {
 body .table-wrap {
   display: none;
 }
+body .notify {
+  position: fixed;
+  top: 10px;
+  right: -100%;
+}
+
+body .notify.notify-error,
+body .notify.notify-success {
+  right: 10px;
+}
 
 .form {
   display: none;
@@ -102,6 +112,24 @@ body[state="selected_orders"] .table-wrap.__all-orders {
 @media only screen and (min-width: 769px) {
   body[state="selected_orders"] .form-actions .btn-group {
     justify-content: flex-start;
+  }
+}
+
+/* TABLET */
+@media only screen and (max-width: 768px) {
+  body .notify {
+    width: 100%;
+    position: fixed;
+    top: -500px;
+    right: 0;
+    border-radius: 0;
+    right: 0;
+  }
+
+  body .notify.notify-error,
+  body .notify.notify-success {
+    top: 0;
+    right: 0;
   }
 }
 

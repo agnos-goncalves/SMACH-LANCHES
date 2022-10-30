@@ -78,3 +78,20 @@ function tableRender(tableSelector, items, columns) {
 function changePage(pageState) {
   document.querySelector("body").setAttribute("state", pageState);
 }
+
+function notify(state) {
+  const notifyElement = document.querySelector(".notify");
+  const classes = {
+    success: "notify-success",
+    error: "notify-success",
+  };
+  if (state === "none") {
+    notifyElement.classList.remove(classes.success);
+    notifyElement.classList.remove(classes.error);
+    return;
+  }
+  notifyElement.classList.add(classes[state]);
+  setTimeout(() => {
+    notify("none");
+  }, 2000);
+}
