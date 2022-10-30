@@ -54,7 +54,7 @@ const SMACH = {
   newOrder: {
     products: [],
   },
-  orders: ordersMocked,
+  orders: [],
 };
 
 const ORDER_STATE = {
@@ -66,5 +66,6 @@ const ORDER_STATE = {
 const PAGE_STATE = {
   ALL_ORDERS: "all_orders",
   NEW_ORDER: "new_order",
+  EDIT_ORDER: "edit_order",
   SELECTED_ORDERS: "selected_orders",
 };

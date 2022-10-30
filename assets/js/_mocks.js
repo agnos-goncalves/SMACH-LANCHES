@@ -50,6 +50,7 @@ const ordersMocked = [
 ];
 
 const newOrderMocked = {
+  id: "1212121",
   type: "delivery",
   products: [
     {
@@ -61,6 +62,13 @@ const newOrderMocked = {
     },
     {
       code: 1002,
+      name: "SMACH VariavelBurguer – Hambúrguer com bacon",
+      price: 45,
+      quantity: 1,
+      priceTotal: 45,
+    },
+    {
+      code: 1003,
       name: "SMACH VariavelBurguer – Hambúrguer com bacon",
       price: 45,
       quantity: 1,

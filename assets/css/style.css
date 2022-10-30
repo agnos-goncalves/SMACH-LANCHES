@@ -55,10 +55,13 @@ body[state="all_orders"] .table-wrap.__all-orders {
   display: block;
 }
 
-/* NEW ORDER */
+/* NEW ORDER  AND EDIT ORDER */
+body[state="edit_order"] .form-new-order,
 body[state="new_order"] .form-new-order {
   display: block;
 }
+
+body[state="edit_order"] .table-wrap.__new-order,
 body[state="new_order"] .table-wrap.__new-order {
   display: block;
 }

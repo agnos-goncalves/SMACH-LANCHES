@@ -2,6 +2,11 @@ function uuid() {
   return String(new Date().getTime()).slice(4, 13);
 }
 
+function getPageState() {
+  const state = document.querySelector("body").getAttribute("state");
+  return state;
+}
+
 function getDateNowFormated() {
   const date = new Date();
   const dateNow = new Date(

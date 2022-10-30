@@ -31,6 +31,19 @@ function deleteOrders(ordersRemoved) {
   SMACH.orders = ordersUpdated;
 }
 
+function tableNewOrderListeners() {
+  const buttonDeleteProduct = document.querySelectorAll(
+    ".table-new-order .icon-trash"
+  );
+  buttonDeleteProduct.forEach((button) => {
+    button.addEventListener("click", () => {
+      const product = findProduct(button.getAttribute("product-id"));
+      deleteProductToNewOrder(product);
+      tableNewOrderRender();
+    });
+  });
+}
+
 function tableOrdersListeners() {
   const buttonsStatus = document.querySelectorAll(
     ".table-all-orders .btn.__event"
@@ -129,6 +142,15 @@ function addNewOrderInOrder(newOrder) {
   SMACH.newOrder.products = [];
 }
 
+function deleteProductToNewOrder(product) {
+  const productIndex = SMACH.newOrder.products.findIndex(
+    (orderItem) => orderItem.code === product.code
+  );
+  if (productIndex >= 0) {
+    SMACH.newOrder.products.splice(productIndex, 1);
+  }
+  return SMACH.newOrder;
+}
 function addProductToNewOrder(product) {
   const productIndex = SMACH.newOrder.products.findIndex(
     (orderItem) => orderItem.code === product.code
@@ -219,14 +241,31 @@ function getOrdersListFiltered(type, status) {
   return ordersFiltered;
 }
 
-function tableNewOrderRender(products = SMACH.newOrder.products) {
+function tableNewOrderRender(order = SMACH.newOrder) {
   const tableTotal = document.querySelector(".table-new-order__total strong");
-  const priceTotal = getTotalPriceToNewOrder(products);
-  tableRender(".table-new-order", products, [
+  const priceTotal = getTotalPriceToNewOrder(order.products);
+  const formTitle =
+    getPageState() === PAGE_STATE.NEW_ORDER
+      ? "Novo Pedido"
+      : `Editar Pedido - ${order.id}`;
+
+  const formAddOrderTitle = document.querySelector(
+    ".form-new-order .form-title"
+  );
+  formAddOrderTitle.innerText = formTitle;
+
+  const productsMap = order.products.map((product) => ({
+    ...product,
+    action: `<i product-id="${product.code}" class="icon icon-trash"></i>`,
+  }));
+
+  tableRender(".table-new-order", productsMap, [
     "code",
     "name",
     "quantity",
     "priceTotal",
+    "action",
   ]);
+  tableNewOrderListeners();
   tableTotal.innerHTML = priceTotal;
 }

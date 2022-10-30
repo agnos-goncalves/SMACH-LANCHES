@@ -44,6 +44,10 @@
   display: none;
 }
 
+.table .icon-trash:hover {
+  background-image: url(../img/svg/icon-trash-orange.svg);
+}
+
 .table-wrap.__empty .table {
   height: 240px;
   background-image: url("../img/items.png");

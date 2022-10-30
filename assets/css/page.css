@@ -1,7 +1,7 @@
 .page {
   padding: 20px 24px 0 24px;
 }
-
+.page .form-new-order,
 .page .form-add-order {
   margin-bottom: 20px;
 }
