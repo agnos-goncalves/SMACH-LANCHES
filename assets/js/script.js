@@ -12,6 +12,7 @@ window.onload = () => {
   const buttonCancelNewOrder = document.querySelector(
     ".table-new-order .btn-cta-link"
   );
+  const buttonPrint = document.querySelector(".form-actions .btn-print");
 
   const filtersOrder = document.querySelectorAll(".form-actions select");
 
@@ -63,6 +64,12 @@ window.onload = () => {
       buttonSelectAllItemsTableOrders.checked
     );
     formActionsUpdateStateRender();
+  });
+
+  buttonPrint.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.print();
   });
 
   // MOCK ALL ORDERS

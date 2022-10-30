@@ -101,3 +101,15 @@ body[state="selected_orders"] .table-wrap.__all-orders {
     justify-content: flex-start;
   }
 }
+
+@media print {
+  .table input,
+  .form,
+  .footer,
+  .sidebar {
+    display: none !important;
+  }
+  section {
+    width: 100% !important;
+  }
+}
