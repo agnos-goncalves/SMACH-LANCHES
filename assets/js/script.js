@@ -82,7 +82,8 @@ window.onload = () => {
     deleteOrdersChecked();
   });
 
-  // changePage(PAGE_STATE.EDIT_ORDER);
+  changePage(PAGE_STATE.ALL_ORDERS);
+  updateSidebarDate();
   // SMACH.newOrder = newOrderMocked;
   // tableOrderRender(SMACH.newOrder);
 };

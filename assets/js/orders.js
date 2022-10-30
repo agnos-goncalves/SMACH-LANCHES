@@ -103,9 +103,9 @@ function tableAllOrdersRender(orders) {
   const ordersMapped = orders.map((order) => ({
     ...order,
     id: `<fieldset class="field"><input order-id="${order.id}" class="row-field-checkbox" type="checkbox" /></fieldset>${order.id}`,
-    status: `<button order-id="${order.id}" class="${btn[order.status]}">${
-      legend[order.status]
-    }</button>`,
+    status: `<button disabled order-id="${order.id}" class="${
+      btn[order.status]
+    }">${legend[order.status]}</button>`,
   }));
 
   tableRender(".table-all-orders", ordersMapped, [

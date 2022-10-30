@@ -9,6 +9,10 @@
   background-color: white;
   padding: 65px 32px;
 }
+.sider-information-date {
+  font-style: normal;
+}
+
 .logo {
   width: 100%;
   margin: 0 auto;

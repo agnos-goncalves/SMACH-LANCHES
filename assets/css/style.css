@@ -27,7 +27,7 @@ body {
 }
 
 body main {
-  min-height: 700px;
+  min-height: 90vh;
 }
 
 body .table-wrap {
