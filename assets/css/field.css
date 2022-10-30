@@ -16,6 +16,13 @@
   border: 1px solid var(--cl-black-400);
 }
 
+.field input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--cl-orange-500);
+  cursor: pointer;
+}
+
 .field input:focus,
 .field select:focus {
   border-color: var(--cl-cta);
@@ -48,6 +55,10 @@
 .field.__error input:not(:placeholder-shown) {
   border-color: var(--cl-error-hover);
 }
+
+/* input[type="checkbox"]:hover {
+  accent-color: var(--cl-primary-hover);
+} */
 
 /* DISABLED */
 .field input:readonly,

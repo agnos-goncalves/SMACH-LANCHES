@@ -53,7 +53,11 @@ window.onload = () => {
     });
   });
 
-  // tableOrdersRender();
-  changePage(PAGE_STATE.NEW_ORDER);
-  tableNewOrderRender(newOrderMocked.products);
+  // MOCK ALL ORDERS
+  changePage(PAGE_STATE.ALL_ORDERS);
+  tableOrdersRender(ordersMocked);
+
+  // // MOCK NEW ORDER
+  // changePage(PAGE_STATE.NEW_ORDER);
+  // tableNewOrderRender(newOrderMocked.products);
 };

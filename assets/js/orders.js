@@ -22,7 +22,7 @@ function tableOrdersRender(orders = SMACH.orders) {
   };
   const ordersMapped = orders.map((order) => ({
     ...order,
-    id: `<input class="row-field-checkbox" type="checkbox" />${order.id}`,
+    id: `<fieldset class="field"><input class="row-field-checkbox" type="checkbox" /></fieldset>${order.id}`,
     status: `<button order-id="${order.id}" class="${btn[order.status]}">${
       legend[order.status]
     }</button>`,
