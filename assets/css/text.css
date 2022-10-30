@@ -29,3 +29,10 @@ strong.text,
   text-align: center;
   color: var(--cl-black-100);
 }
+
+/* TABLET */
+@media only screen and (max-width: 768px) {
+  .text-warning {
+    font-size: 16px;
+  }
+}

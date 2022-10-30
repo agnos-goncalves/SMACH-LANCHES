@@ -54,5 +54,5 @@ window.onload = () => {
   });
 
   changePage(PAGE_STATE.ALL_ORDERS);
-  tableOrdersRender();
+  // tableOrdersRender();
 };
