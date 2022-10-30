@@ -2,11 +2,21 @@ function uuid() {
   return String(new Date().getTime()).slice(4, 13);
 }
 
+function getDateNowFormated() {
+  const date = new Date();
+  const dateNow = new Date(
+    date.getTime() - date.getTimezoneOffset() * 60000
+  ).toISOString();
+  const [fullDate, fullTime] = dateNow.split("T");
+  const dateFormated = fullDate.split("-").reverse().join("/");
+  const dateTimeFormated = fullTime.split(".")[0].slice(0, -3);
+
+  return `${dateFormated}-${dateTimeFormated}`;
+}
+
 function updateSidebarDate() {
-  // const day = new Date().getDay();
-  // const month = new Date().getMonth() + 1;
-  // const date = new Date().getDate();
-  // const date = new Date().getDate();
+  const sidebarInfoElement = document.querySelector(".sider-information-date");
+  sidebarInfoElement.innerText = getDateNowFormated();
 }
 
 function setFormData(formSelector, fields) {
@@ -53,6 +63,7 @@ function tableRender(tableSelector, items, columns) {
   });
   console.log("template", template);
   tbody.innerHTML = template;
+  updateSidebarDate();
 }
 
 function changePage(pageState) {
