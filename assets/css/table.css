@@ -81,4 +81,14 @@
     width: auto;
     min-width: 100%;
   }
+  .table-wrap tfoot .row {
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 0;
+  }
+  .table-wrap tfoot .row .btn-group {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }

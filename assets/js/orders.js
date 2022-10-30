@@ -55,8 +55,8 @@ function changeOrderStatus(orderId) {
   return SMACH.orders;
 }
 
-function getTotalPriceToNewOrder() {
-  return SMACH.newOrder.products.reduce(
+function getTotalPriceToNewOrder(products = SMACH.newOrder.products) {
+  return products.reduce(
     (priceTotal, product) => (priceTotal += product.priceTotal),
     0
   );
@@ -166,10 +166,10 @@ function getOrdersListFiltered(type, status) {
   return ordersFiltered;
 }
 
-function tableNewOrderRender() {
+function tableNewOrderRender(products = SMACH.newOrder.products) {
   const tableTotal = document.querySelector(".table-new-order__total strong");
-  const priceTotal = getTotalPriceToNewOrder();
-  tableRender(".table-new-order", SMACH.newOrder.products, [
+  const priceTotal = getTotalPriceToNewOrder(products);
+  tableRender(".table-new-order", products, [
     "code",
     "name",
     "quantity",

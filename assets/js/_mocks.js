@@ -48,3 +48,23 @@ const ordersMocked = [
     type: "salao",
   },
 ];
+
+const newOrderMocked = {
+  type: "delivery",
+  products: [
+    {
+      code: 1001,
+      name: "Super SMACH COMBO Programado – Hambúrguer + Fritas",
+      price: 55,
+      quantity: 1,
+      priceTotal: 55,
+    },
+    {
+      code: 1002,
+      name: "SMACH VariavelBurguer – Hambúrguer com bacon",
+      price: 45,
+      quantity: 1,
+      priceTotal: 45,
+    },
+  ],
+};
