@@ -79,6 +79,7 @@ window.onload = () => {
   buttonOrdersEdit.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
+    editOrderChecked();
   });
 
   buttonOrdersDelete.addEventListener("click", (e) => {
@@ -93,7 +94,4 @@ window.onload = () => {
 
   // MOCK NEW ORDER
   // changePage(PAGE_STATE.EDIT_ORDER);
-  tableNewOrderRender();
-
-  // changePage(PAGE_STATE.SELECTED_ORDERS);
 };

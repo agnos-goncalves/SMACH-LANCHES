@@ -121,7 +121,7 @@ function getTotalPriceToNewOrder(products = SMACH.newOrder.products) {
   );
 }
 
-function addNewOrderInOrder(newOrder) {
+function getNewOrderComputedDate(newOrder) {
   const name = newOrder.products.reduce(
     (name, product) => (name += `${product.quantity} - ${product.name}`),
     ""
@@ -131,6 +131,21 @@ function addNewOrderInOrder(newOrder) {
     0
   );
 
+  return { name, priceTotal };
+}
+
+function editNewOrderInOrder(newOrder) {
+  const { name, priceTotal } = getNewOrderComputedDate(newOrder);
+  SMACH.orders = SMACH.orders.map((order) => {
+    if (order.id === newOrder.id) {
+      return { ...order, name, priceTotal };
+    }
+    return order;
+  });
+}
+
+function addNewOrderInOrder(newOrder) {
+  const { name, priceTotal } = getNewOrderComputedDate(newOrder);
   const order = {
     id: uuid(),
     name,
@@ -138,6 +153,7 @@ function addNewOrderInOrder(newOrder) {
     status: ORDER_STATE.RECEIVED,
     ...newOrder,
   };
+
   SMACH.orders.unshift(order);
   SMACH.newOrder.products = [];
 }
@@ -185,10 +201,14 @@ function addNewOrderToOrderList() {
     alert("adiciona algum produto no pedido");
     return false;
   }
-  addNewOrderInOrder({
-    ...SMACH.newOrder,
-    type: getFormData(".form-new-order").get("orderType"),
-  });
+  if (!SMACH.newOrder.id) {
+    addNewOrderInOrder({
+      ...SMACH.newOrder,
+      type: getFormData(".form-new-order").get("orderType"),
+    });
+  } else {
+    editNewOrderInOrder(SMACH.newOrder);
+  }
   tableNewOrderRender();
   tableOrdersRender();
   return true;
@@ -224,6 +244,22 @@ function addProductToNewOrderList() {
   });
 }
 
+function editOrderChecked() {
+  const ordersEdit = getCheckedOrders();
+  const order = ordersEdit[0];
+
+  if (ordersEdit.length !== 1) {
+    alert("Voce so pode editar 1 pedido por fez");
+    return;
+  }
+  SMACH.newOrder = {
+    id: order.id,
+    type: order.type,
+    products: order.products,
+  };
+  changePage(PAGE_STATE.EDIT_ORDER);
+  tableNewOrderRender();
+}
 function deleteOrdersChecked() {
   const ordersDelete = getCheckedOrders();
   deleteOrders(ordersDelete);
@@ -245,9 +281,9 @@ function tableNewOrderRender(order = SMACH.newOrder) {
   const tableTotal = document.querySelector(".table-new-order__total strong");
   const priceTotal = getTotalPriceToNewOrder(order.products);
   const formTitle =
-    getPageState() === PAGE_STATE.NEW_ORDER
-      ? "Novo Pedido"
-      : `Editar Pedido - ${order.id}`;
+    getPageState() === PAGE_STATE.EDIT_ORDER
+      ? `Editar Pedido - ${order.id}`
+      : "Novo Pedido";
 
   const formAddOrderTitle = document.querySelector(
     ".form-new-order .form-title"
