@@ -1,13 +1,39 @@
+function formActionsUpdateStateRender() {
+  const itemsSelected = document.querySelectorAll(
+    ".table-all-orders .row-field-checkbox:checked"
+  );
+  if (itemsSelected.length > 0) {
+    changePage(PAGE_STATE.SELECTED_ORDERS);
+  } else {
+    changePage(PAGE_STATE.ALL_ORDERS);
+  }
+}
 function tableOrdersListeners() {
-  const buttons = document.querySelectorAll(".table-all-orders .btn.__event");
-  buttons.forEach((button) => {
+  const buttonsStatus = document.querySelectorAll(
+    ".table-all-orders .btn.__event"
+  );
+  const buttonsCheckbox = document.querySelectorAll(
+    ".table-all-orders .row-field-checkbox"
+  );
+  buttonsStatus.forEach((button) => {
     button.addEventListener("click", () => {
       const productId = button.getAttribute("order-id");
       changeOrderStatus(productId);
       tableOrdersRender();
     });
   });
+
+  // buttonsCheckbox.forEach((button) => {
+  //   button.addEventListener("change", (e) => {
+  //     const productId = button.getAttribute("order-id");
+
+  //     // changeOrderStatus(productId);
+  //     // tableOrdersRender();
+  //   });
+  // });
 }
+
+function tableOrdersCheckedAllItemsRender() {}
 
 function tableOrdersRender(orders = SMACH.orders) {
   const btn = {
@@ -22,7 +48,7 @@ function tableOrdersRender(orders = SMACH.orders) {
   };
   const ordersMapped = orders.map((order) => ({
     ...order,
-    id: `<fieldset class="field"><input class="row-field-checkbox" type="checkbox" /></fieldset>${order.id}`,
+    id: `<fieldset class="field"><input order-id="${order.id}" class="row-field-checkbox" type="checkbox" /></fieldset>${order.id}`,
     status: `<button order-id="${order.id}" class="${btn[order.status]}">${
       legend[order.status]
     }</button>`,

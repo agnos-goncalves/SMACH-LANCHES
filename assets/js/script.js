@@ -15,6 +15,10 @@ window.onload = () => {
 
   const filtersOrder = document.querySelectorAll(".form-actions select");
 
+  const buttonSelectAllItemsTableOrders = document.querySelector(
+    '.table-all-orders thead input[type="checkbox"]'
+  );
+
   buttonAddNewOrder.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -53,6 +57,14 @@ window.onload = () => {
     });
   });
 
+  buttonSelectAllItemsTableOrders.addEventListener("change", (checkbox) => {
+    checkedAllItemsRender(
+      ".table-all-orders .row-field-checkbox",
+      buttonSelectAllItemsTableOrders.checked
+    );
+    formActionsUpdateStateRender();
+  });
+
   // MOCK ALL ORDERS
   changePage(PAGE_STATE.ALL_ORDERS);
   tableOrdersRender(ordersMocked);
@@ -60,4 +72,6 @@ window.onload = () => {
   // // MOCK NEW ORDER
   // changePage(PAGE_STATE.NEW_ORDER);
   // tableNewOrderRender(newOrderMocked.products);
+
+  // changePage(PAGE_STATE.SELECTED_ORDERS);
 };
