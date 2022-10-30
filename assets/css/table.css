@@ -50,6 +50,7 @@
   background-repeat: no-repeat;
   background-position: bottom;
 }
+.table-wrap.__empty .table input[type="checkbox"],
 .table-wrap.__empty tfoot {
   display: none;
 }

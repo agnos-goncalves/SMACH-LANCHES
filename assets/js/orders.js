@@ -2,12 +2,35 @@ function formActionsUpdateStateRender() {
   const itemsSelected = document.querySelectorAll(
     ".table-all-orders .row-field-checkbox:checked"
   );
+
   if (itemsSelected.length > 0) {
     changePage(PAGE_STATE.SELECTED_ORDERS);
   } else {
     changePage(PAGE_STATE.ALL_ORDERS);
   }
 }
+
+function getCheckedOrders(orders = SMACH.orders) {
+  const ordersChecked = document.querySelectorAll(
+    ".table-all-orders .row-field-checkbox:checked"
+  );
+  const ordersID = Array.from(ordersChecked).map((selected) =>
+    selected.getAttribute("order-id")
+  );
+  const ordersSelected = orders.filter((order) =>
+    ordersID.some((id) => id === order.id)
+  );
+
+  return ordersSelected;
+}
+
+function deleteOrders(ordersRemoved) {
+  const ordersUpdated = SMACH.orders.filter((order) =>
+    ordersRemoved.every((removed) => removed.id !== order.id)
+  );
+  SMACH.orders = ordersUpdated;
+}
+
 function tableOrdersListeners() {
   const buttonsStatus = document.querySelectorAll(
     ".table-all-orders .btn.__event"
@@ -23,14 +46,11 @@ function tableOrdersListeners() {
     });
   });
 
-  // buttonsCheckbox.forEach((button) => {
-  //   button.addEventListener("change", (e) => {
-  //     const productId = button.getAttribute("order-id");
-
-  //     // changeOrderStatus(productId);
-  //     // tableOrdersRender();
-  //   });
-  // });
+  buttonsCheckbox.forEach((button) => {
+    button.addEventListener("change", (e) => {
+      formActionsUpdateStateRender();
+    });
+  });
 }
 
 function tableOrdersCheckedAllItemsRender() {}
@@ -180,6 +200,13 @@ function addProductToNewOrderList() {
     productQuantity: "",
     productPrice: "",
   });
+}
+
+function deleteOrdersChecked() {
+  const ordersDelete = getCheckedOrders();
+  deleteOrders(ordersDelete);
+  tableOrdersRender();
+  changePage(PAGE_STATE.ALL_ORDERS);
 }
 
 function getOrdersListFiltered(type, status) {

@@ -12,7 +12,11 @@ window.onload = () => {
   const buttonCancelNewOrder = document.querySelector(
     ".table-new-order .btn-cta-link"
   );
-  const buttonPrint = document.querySelector(".form-actions .btn-print");
+  const buttonOrdersPrint = document.querySelector(".form-actions .btn-print");
+  const buttonOrdersEdit = document.querySelector(".form-actions .btn-edit");
+  const buttonOrdersDelete = document.querySelector(
+    ".form-actions .btn-delete"
+  );
 
   const filtersOrder = document.querySelectorAll(".form-actions select");
 
@@ -66,10 +70,21 @@ window.onload = () => {
     formActionsUpdateStateRender();
   });
 
-  buttonPrint.addEventListener("click", (e) => {
+  buttonOrdersPrint.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
     window.print();
+  });
+
+  buttonOrdersEdit.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+
+  buttonOrdersDelete.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    deleteOrdersChecked();
   });
 
   // MOCK ALL ORDERS

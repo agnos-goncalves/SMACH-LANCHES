@@ -44,10 +44,7 @@ function isValidForm(formSelector, fieldsRequired) {
 
 function checkedAllItemsRender(selector, checked) {
   const items = document.querySelectorAll(selector);
-  items.forEach((item) => {
-    item.checked = checked;
-    item.dispatchEvent(new Event("change"));
-  });
+  items.forEach((item) => (item.checked = checked));
 }
 
 function tableRender(tableSelector, items, columns) {
