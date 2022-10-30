@@ -28,7 +28,6 @@ function setFormData(formSelector, fields) {
   const form = document.querySelector(formSelector);
   Object.keys(fields).forEach((key) => {
     const value = fields[key];
-
     form.querySelector(`[name="${key}"]`).setAttribute("value", value);
   });
 }

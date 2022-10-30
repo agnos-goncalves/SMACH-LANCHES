@@ -1,14 +1,12 @@
 window.onload = () => {
   const buttonAddNewOrder = document.querySelector(".form-add-order .btn");
-  const buttonAddProductToNewOrder = document.querySelector(
+  const buttonAddProductToOrder = document.querySelector(
     ".form-new-order .btn-primary"
   );
   const buttonSearchProduct = document.querySelector(
     ".form-new-order__search .btn"
   );
-  const buttonSaveNewOrder = document.querySelector(
-    ".table-new-order .btn-cta"
-  );
+  const buttonSaveOrder = document.querySelector(".table-new-order .btn-cta");
   const buttonCancelNewOrder = document.querySelector(
     ".table-new-order .btn-cta-link"
   );
@@ -36,17 +34,14 @@ window.onload = () => {
     searchProductAndFillFormNewOrder();
   });
 
-  buttonAddProductToNewOrder.addEventListener("click", (e) => {
+  buttonAddProductToOrder.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    addProductToNewOrderList();
+    addProductToOrderAndTableRender();
   });
 
-  buttonSaveNewOrder.addEventListener("click", (e) => {
-    const operationFinished = addNewOrderToOrderList();
-    if (operationFinished) {
-      changePage(PAGE_STATE.ALL_ORDERS);
-    }
+  buttonSaveOrder.addEventListener("click", (e) => {
+    addOrderAndTableRender();
   });
 
   buttonCancelNewOrder.addEventListener("click", (e) => {
@@ -57,23 +52,22 @@ window.onload = () => {
     select.addEventListener("change", (e) => {
       const orderType = filtersOrder[0].value;
       const orderStatus = filtersOrder[1].value;
-      const orders = getOrdersListFiltered(orderType, orderStatus);
-      tableOrdersRender(orders);
+
+      filterAllOrdersAndTableRender(orderType, orderStatus);
     });
   });
 
-  buttonSelectAllItemsTableOrders.addEventListener("change", (checkbox) => {
-    checkedAllItemsRender(
-      ".table-all-orders .row-field-checkbox",
+  buttonSelectAllItemsTableOrders.addEventListener("change", () => {
+    checkAllItemsOnTable(
+      ".table-all-orders tbody",
       buttonSelectAllItemsTableOrders.checked
     );
-    formActionsUpdateStateRender();
   });
 
   buttonOrdersPrint.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    window.print();
+    printOrders();
   });
 
   buttonOrdersEdit.addEventListener("click", (e) => {
@@ -88,10 +82,7 @@ window.onload = () => {
     deleteOrdersChecked();
   });
 
-  // MOCK ALL ORDERS
-  // changePage(PAGE_STATE.ALL_ORDERS);
-  // tableOrdersRender(ordersMocked);
-
-  // MOCK NEW ORDER
   // changePage(PAGE_STATE.EDIT_ORDER);
+  // SMACH.newOrder = newOrderMocked;
+  // tableOrderRender(SMACH.newOrder);
 };

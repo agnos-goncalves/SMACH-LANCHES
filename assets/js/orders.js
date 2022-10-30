@@ -10,28 +10,49 @@ function formActionsUpdateStateRender() {
   }
 }
 
-function getCheckedOrders(orders = SMACH.orders) {
-  const ordersChecked = document.querySelectorAll(
-    ".table-all-orders .row-field-checkbox:checked"
+function getCheckedItemsOnTable(tableSelector) {
+  const itensChecked = document.querySelectorAll(
+    `${tableSelector} input[type=checkbox]:checked`
   );
+  return itensChecked;
+}
+
+function getOrdersCheckedOnTable(orders) {
+  const ordersChecked = getCheckedItemsOnTable(".table-all-orders");
   const ordersID = Array.from(ordersChecked).map((selected) =>
     selected.getAttribute("order-id")
   );
   const ordersSelected = orders.filter((order) =>
     ordersID.some((id) => id === order.id)
   );
-
   return ordersSelected;
 }
 
-function deleteOrders(ordersRemoved) {
-  const ordersUpdated = SMACH.orders.filter((order) =>
-    ordersRemoved.every((removed) => removed.id !== order.id)
-  );
-  SMACH.orders = ordersUpdated;
+function filterAllOrdersAndTableRender(orderType, orderStatus) {
+  const orders = getAllOrdersFiltered(orderType, orderStatus);
+  tableAllOrdersRender(orders);
 }
 
-function tableNewOrderListeners() {
+function checkAllItemsOnTable(tableSelector, checked) {
+  checkedAllItemsRender(`${tableSelector} input[type="checkbox"]`, checked);
+  formActionsUpdateStateRender();
+}
+function printOrders() {
+  if (SMACH.orders.length == 0) {
+    alert("Não ha nenhum pedido para ser impresso");
+    return;
+  }
+  window.print();
+}
+
+function deleteOrders(orders, ordersRemoved) {
+  const ordersUpdated = orders.filter((order) =>
+    ordersRemoved.every((removed) => removed.id !== order.id)
+  );
+  return ordersUpdated;
+}
+
+function tableOrderListeners() {
   const buttonDeleteProduct = document.querySelectorAll(
     ".table-new-order .icon-trash"
   );
@@ -39,23 +60,24 @@ function tableNewOrderListeners() {
     button.addEventListener("click", () => {
       const product = findProduct(button.getAttribute("product-id"));
       deleteProductToNewOrder(product);
-      tableNewOrderRender();
+      tableOrderRender(SMACH.newOrder);
     });
   });
 }
 
-function tableOrdersListeners() {
+function tableAllOrdersListeners() {
   const buttonsStatus = document.querySelectorAll(
     ".table-all-orders .btn.__event"
   );
   const buttonsCheckbox = document.querySelectorAll(
     ".table-all-orders .row-field-checkbox"
   );
+
   buttonsStatus.forEach((button) => {
     button.addEventListener("click", () => {
-      const productId = button.getAttribute("order-id");
-      changeOrderStatus(productId);
-      tableOrdersRender();
+      const orderID = button.getAttribute("order-id");
+      SMACH.orders = changeOrderStatus(SMACH.orders, orderID);
+      tableAllOrdersRender(SMACH.orders);
     });
   });
 
@@ -66,19 +88,18 @@ function tableOrdersListeners() {
   });
 }
 
-function tableOrdersCheckedAllItemsRender() {}
-
-function tableOrdersRender(orders = SMACH.orders) {
+function tableAllOrdersRender(orders) {
   const btn = {
     received: "btn btn-default __event __received",
     done: "btn btn-warning __event __done",
     delivered: "btn btn-success __delivered",
   };
   const legend = {
-    received: "recebido",
-    done: "pronto",
-    delivered: "entregue",
+    received: "Recebido",
+    done: "Pronto",
+    delivered: "Entregue",
   };
+
   const ordersMapped = orders.map((order) => ({
     ...order,
     id: `<fieldset class="field"><input order-id="${order.id}" class="row-field-checkbox" type="checkbox" /></fieldset>${order.id}`,
@@ -95,26 +116,26 @@ function tableOrdersRender(orders = SMACH.orders) {
     "status",
   ]);
 
-  tableOrdersListeners();
+  tableAllOrdersListeners();
 }
 
-function changeOrderStatus(orderId) {
+function changeOrderStatus(orders, orderId) {
   const getStatus = {
     [ORDER_STATE.RECEIVED]: ORDER_STATE.DONE,
     [ORDER_STATE.DONE]: ORDER_STATE.DELIVERED,
     [ORDER_STATE.DELIVERED]: ORDER_STATE.DELIVERED,
   };
 
-  SMACH.orders = SMACH.orders.map((order) => {
+  const ordersMapped = orders.map((order) => {
     if (order.id === orderId) {
       return { ...order, status: getStatus[order.status] };
     }
     return order;
   });
-  return SMACH.orders;
+  return ordersMapped;
 }
 
-function getTotalPriceToNewOrder(products = SMACH.newOrder.products) {
+function getTotalPriceToNewOrder(products) {
   return products.reduce(
     (priceTotal, product) => (priceTotal += product.priceTotal),
     0
@@ -134,28 +155,34 @@ function getNewOrderComputedDate(newOrder) {
   return { name, priceTotal };
 }
 
-function editNewOrderInOrder(newOrder) {
-  const { name, priceTotal } = getNewOrderComputedDate(newOrder);
-  SMACH.orders = SMACH.orders.map((order) => {
-    if (order.id === newOrder.id) {
-      return { ...order, name, priceTotal };
+function updateOrder(order, orderPayload) {
+  const { id, type, products } = orderPayload;
+  const orderMapped = { ...order, id, type, products };
+  return orderMapped;
+}
+
+function editOrder(allOrders, order) {
+  const { name, priceTotal } = getNewOrderComputedDate(order);
+  const ordersMapped = allOrders.map((orderItem) => {
+    if (orderItem.id === order.id) {
+      return { ...order, name, priceTotal, status: ORDER_STATE.RECEIVED };
     }
     return order;
   });
+  return ordersMapped;
 }
 
-function addNewOrderInOrder(newOrder) {
-  const { name, priceTotal } = getNewOrderComputedDate(newOrder);
-  const order = {
+function addOrder(allOrders, order) {
+  const { name, priceTotal } = getNewOrderComputedDate(order);
+  const newOrder = {
     id: uuid(),
     name,
     priceTotal,
     status: ORDER_STATE.RECEIVED,
-    ...newOrder,
+    ...order,
   };
-
-  SMACH.orders.unshift(order);
-  SMACH.newOrder.products = [];
+  allOrders.unshift(newOrder);
+  return allOrders;
 }
 
 function deleteProductToNewOrder(product) {
@@ -167,24 +194,24 @@ function deleteProductToNewOrder(product) {
   }
   return SMACH.newOrder;
 }
-function addProductToNewOrder(product) {
-  const productIndex = SMACH.newOrder.products.findIndex(
+function addProductToOrder(order, product) {
+  const productIndex = order.products.findIndex(
     (orderItem) => orderItem.code === product.code
   );
-  const productFinded = SMACH.newOrder.products[productIndex];
+  const productFinded = order.products[productIndex];
   if (productFinded) {
     productFinded.quantity += product.quantity;
     productFinded.priceTotal = productFinded.quantity * product.price;
   } else {
     const priceTotal = product.quantity * product.price;
-    SMACH.newOrder.products.push({ ...product, priceTotal });
+    order.products.push({ ...product, priceTotal });
   }
-  return SMACH.newOrder;
+  return order;
 }
 
 function searchProductAndFillFormNewOrder() {
-  const productFind = getFormData(".form-new-order").get("productCode");
-  const product = findProduct(productFind);
+  const productCode = getFormData(".form-new-order").get("productCode");
+  const product = findProduct(productCode);
   if (product) {
     setFormData(".form-new-order", {
       productName: product.name,
@@ -196,34 +223,40 @@ function searchProductAndFillFormNewOrder() {
   }
 }
 
-function addNewOrderToOrderList() {
+function addOrderAndTableRender() {
   if (!SMACH.newOrder.products.length) {
     alert("adiciona algum produto no pedido");
     return false;
   }
+  const order = {
+    ...SMACH.newOrder,
+    type: getFormData(".form-new-order").get("orderType"),
+  };
+
   if (!SMACH.newOrder.id) {
-    addNewOrderInOrder({
-      ...SMACH.newOrder,
-      type: getFormData(".form-new-order").get("orderType"),
-    });
+    SMACH.orders = addOrder(SMACH.orders, order);
   } else {
-    editNewOrderInOrder(SMACH.newOrder);
+    SMACH.orders = editOrder(SMACH.orders, order);
   }
-  tableNewOrderRender();
-  tableOrdersRender();
-  return true;
+
+  SMACH.newOrder = [];
+
+  tableAllOrdersRender(SMACH.orders);
+  changePage(PAGE_STATE.ALL_ORDERS);
 }
 
-function addProductToNewOrderList() {
+function addProductToOrderAndTableRender() {
   const productCode = getFormData(".form-new-order").get("productCode");
-  const productFinded = findProduct(productCode);
+  const productQuantity = getFormData(".form-new-order").get("productQuantity");
+  const product = findProduct(productCode);
   const allFieldsFilled = isValidForm(".form-new-order", [
     "productName",
     "orderType",
     "productQuantity",
     "productPrice",
   ]);
-  if (!productFinded) {
+
+  if (!product) {
     alert("produto nao encontrado");
     return;
   }
@@ -231,43 +264,42 @@ function addProductToNewOrderList() {
     alert("preencha todos os campos");
     return;
   }
-  const quantity = Number(
-    getFormData(".form-new-order").get("productQuantity")
-  );
-  addProductToNewOrder({ ...productFinded, quantity });
-  tableNewOrderRender();
+
   setFormData(".form-new-order", {
     productCode: "", // fix no clear search
     productName: "",
     productQuantity: "",
     productPrice: "",
   });
+
+  SMACH.newOrder = addProductToOrder(SMACH.newOrder, {
+    ...product,
+    quantity: Number(productQuantity),
+  });
+
+  tableOrderRender(SMACH.newOrder);
 }
 
 function editOrderChecked() {
-  const ordersEdit = getCheckedOrders();
-  const order = ordersEdit[0];
+  const ordersSelecteds = getOrdersCheckedOnTable(SMACH.orders);
+  const order = ordersSelecteds[0];
 
-  if (ordersEdit.length !== 1) {
+  if (ordersSelecteds.length !== 1) {
     alert("Voce so pode editar 1 pedido por fez");
     return;
   }
-  SMACH.newOrder = {
-    id: order.id,
-    type: order.type,
-    products: order.products,
-  };
+  SMACH.newOrder = updateOrder(SMACH.newOrder, order);
   changePage(PAGE_STATE.EDIT_ORDER);
-  tableNewOrderRender();
+  tableOrderRender(SMACH.newOrder);
 }
 function deleteOrdersChecked() {
-  const ordersDelete = getCheckedOrders();
-  deleteOrders(ordersDelete);
-  tableOrdersRender();
+  const orders = getOrdersCheckedOnTable(".table-all-orders");
+  SMACH.orders = deleteOrders(SMACH.orders, orders);
+  tableAllOrdersRender();
   changePage(PAGE_STATE.ALL_ORDERS);
 }
 
-function getOrdersListFiltered(type, status) {
+function getAllOrdersFiltered(type, status) {
   let ordersFiltered = SMACH.orders.filter(
     (order) => order.type === type || type === "all"
   );
@@ -277,7 +309,7 @@ function getOrdersListFiltered(type, status) {
   return ordersFiltered;
 }
 
-function tableNewOrderRender(order = SMACH.newOrder) {
+function tableOrderRender(order) {
   const tableTotal = document.querySelector(".table-new-order__total strong");
   const priceTotal = getTotalPriceToNewOrder(order.products);
   const formTitle =
@@ -302,6 +334,6 @@ function tableNewOrderRender(order = SMACH.newOrder) {
     "priceTotal",
     "action",
   ]);
-  tableNewOrderListeners();
+  tableOrderListeners();
   tableTotal.innerHTML = priceTotal;
 }
