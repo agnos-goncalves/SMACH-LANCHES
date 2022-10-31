@@ -120,6 +120,7 @@ body[state="selected_orders"] .table-wrap.__all-orders {
 @media only screen and (max-width: 768px) {
   body .notify {
     width: 100%;
+    max-width: 100%;
     position: fixed;
     top: -500px;
     right: 0;
