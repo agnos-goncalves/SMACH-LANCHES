@@ -114,13 +114,14 @@ function tableAllOrdersRender(orders) {
     status: `<button order-id="${order.id}" class="${btn[order.status]}">${
       legend[order.status]
     }</button>`,
+    pricelTotalFormated: getPriceFormated(order.priceTotal),
   }));
 
   tableRender(".table-all-orders", ordersMapped, [
     "id",
     "name",
     "type",
-    "priceTotal",
+    "pricelTotalFormated",
     "status",
   ]);
 
@@ -231,7 +232,7 @@ function searchProductAndFillFormOrder() {
     setFormData(".form-new-order", {
       productName: product.name,
       productQuantity: 1,
-      productPrice: product.price,
+      productPrice: getPriceFormated(product.price),
     });
   } else {
     notify("error", "Produto nao encontrado insira um codigo valido");
@@ -344,15 +345,16 @@ function tableOrderRender(order) {
   const productsMap = order.products.map((product) => ({
     ...product,
     action: `<i product-id="${product.code}" class="icon icon-trash"></i>`,
+    pricelTotalFormated: getPriceFormated(product.priceTotal),
   }));
 
   tableRender(".table-new-order", productsMap, [
     "code",
     "name",
     "quantity",
-    "priceTotal",
+    "pricelTotalFormated",
     "action",
   ]);
   tableOrderListeners();
-  tableTotal.innerHTML = priceTotal;
+  tableTotal.innerHTML = getPriceFormated(priceTotal);
 }

@@ -3,6 +3,15 @@ function uuid() {
   return String(new Date().getTime()).slice(4, 13);
 }
 
+function getPriceFormated(price) {
+  const currency = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2,
+  });
+  return currency.format(price);
+}
+
 function getPageState() {
   const state = document.querySelector("body").getAttribute("state");
   return state;
