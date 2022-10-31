@@ -56,13 +56,7 @@
   border-color: var(--cl-error-hover);
 }
 
-/* input[type="checkbox"]:hover {
-  accent-color: var(--cl-primary-hover);
-} */
-
-/* DISABLED */
-.field input:readonly,
-.field select:readonly,
+.field input[type="text"]:read-only,
 .field input:disabled,
 .field select:disabled {
   background-color: var(--cl-gray-300);
@@ -72,16 +66,15 @@
   cursor: not-allowed;
 }
 
-.field input:readonly,
 .field input:disabled {
   color: var(--cl-black);
   border-color: var(--cl-black-600);
 }
-.field input:readonly:focus,
+
 .field input:disabled:focus {
   border-color: var(--cl-black-400);
 }
-.field input:readonly:not(:placeholder-shown),
+
 .field input:disabled:not(:placeholder-shown) {
   border-color: var(--cl-black-400);
 }

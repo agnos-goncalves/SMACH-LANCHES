@@ -288,7 +288,7 @@ function addProductToOrderAndTableRender() {
   setFormData(".form-new-order", {
     productCode: "", // fix no clear search
     productName: "",
-    productQuantity: "",
+    productQuantity: 1,
     productPrice: "",
   });
 
