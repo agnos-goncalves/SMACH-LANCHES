@@ -1,3 +1,5 @@
+// SMACH LANCHES SYSTEM METHODS
+
 function formActionsUpdateStateRender() {
   const itemsSelected = document.querySelectorAll(
     ".table-all-orders .row-field-checkbox:checked"
@@ -26,6 +28,10 @@ function getOrdersCheckedOnTable(orders) {
     ordersID.some((id) => id === order.id)
   );
   return ordersSelected;
+}
+
+function findProduct(productCode) {
+  return SMACH.products.find((product) => product.code === Number(productCode));
 }
 
 function filterAllOrdersAndTableRender(orderType, orderStatus) {

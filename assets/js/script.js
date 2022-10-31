@@ -1,3 +1,4 @@
+// INITIALIZE SYSTEM
 window.onload = () => {
   const buttonAddOrder = document.querySelector(".form-add-order .btn");
   const buttonAddProductToOrder = document.querySelector(

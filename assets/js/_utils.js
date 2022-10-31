@@ -1,3 +1,4 @@
+// UTILITY FUNCTIONS
 function uuid() {
   return String(new Date().getTime()).slice(4, 13);
 }
