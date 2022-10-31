@@ -59,7 +59,8 @@ function tableOrderListeners() {
   buttonDeleteProduct.forEach((button) => {
     button.addEventListener("click", () => {
       const product = findProduct(button.getAttribute("product-id"));
-      deleteProductToorder(product);
+      deleteProductToOrder(product);
+      notify("success", `Produto ${product.code} removido`);
       tableOrderRender(SMACH.order);
     });
   });
@@ -77,6 +78,7 @@ function tableAllOrdersListeners() {
     button.addEventListener("click", () => {
       const orderID = button.getAttribute("order-id");
       SMACH.orders = changeOrderStatus(SMACH.orders, orderID);
+      notify("success", "Status alterado");
       tableAllOrdersRender(SMACH.orders);
     });
   });
@@ -192,7 +194,7 @@ function addOrder(allOrders, order) {
   z;
 }
 
-function deleteProductToorder(product) {
+function deleteProductToOrder(product) {
   const productIndex = SMACH.order.products.findIndex(
     (orderItem) => orderItem.code === product.code
   );
@@ -242,8 +244,10 @@ function addOrderAndTableRender() {
 
   if (!SMACH.order.id) {
     SMACH.orders = addOrder(SMACH.orders, order);
+    notify("success", "Pedido adicionado");
   } else {
     SMACH.orders = editOrder(SMACH.orders, order);
+    notify("success", "Pedido alterado");
   }
 
   SMACH.order = clearOrder();
@@ -264,12 +268,13 @@ function addProductToOrderAndTableRender() {
     "productPrice",
   ]);
 
-  if (!product) {
-    notify("warning", "Produto não encontrado");
-    return;
-  }
   if (!allFieldsFilled) {
     notify("error", "Preencha todos os campos");
+    return;
+  }
+
+  if (!product) {
+    notify("warning", "Produto não encontrado");
     return;
   }
 
