@@ -49,7 +49,7 @@ const ordersMocked = [
   },
 ];
 
-const newOrderMocked = {
+const orderMocked = {
   id: "1212121",
   type: "delivery",
   products: [

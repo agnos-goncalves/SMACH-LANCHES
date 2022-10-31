@@ -1,5 +1,5 @@
 window.onload = () => {
-  const buttonAddNewOrder = document.querySelector(".form-add-order .btn");
+  const buttonAddOrder = document.querySelector(".form-add-order .btn");
   const buttonAddProductToOrder = document.querySelector(
     ".form-new-order .btn-primary"
   );
@@ -7,7 +7,7 @@ window.onload = () => {
     ".form-new-order__search .btn"
   );
   const buttonSaveOrder = document.querySelector(".table-new-order .btn-cta");
-  const buttonCancelNewOrder = document.querySelector(
+  const buttonCancelOrder = document.querySelector(
     ".table-new-order .btn-cta-link"
   );
   const buttonOrdersPrint = document.querySelector(".form-actions .btn-print");
@@ -24,7 +24,7 @@ window.onload = () => {
 
   const closeButtonNotify = document.querySelector(".notify .icon-close");
 
-  buttonAddNewOrder.addEventListener("click", (e) => {
+  buttonAddOrder.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
     changePage(PAGE_STATE.NEW_ORDER);
@@ -33,7 +33,7 @@ window.onload = () => {
   buttonSearchProduct.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    searchProductAndFillFormNewOrder();
+    searchProductAndFillFormOrder();
   });
 
   buttonAddProductToOrder.addEventListener("click", (e) => {
@@ -46,7 +46,7 @@ window.onload = () => {
     addOrderAndTableRender();
   });
 
-  buttonCancelNewOrder.addEventListener("click", (e) => {
+  buttonCancelOrder.addEventListener("click", (e) => {
     changePage(PAGE_STATE.ALL_ORDERS);
   });
 
@@ -90,7 +90,4 @@ window.onload = () => {
 
   changePage(PAGE_STATE.ALL_ORDERS);
   updateSidebarDate();
-  notify("success");
-  // SMACH.newOrder = newOrderMocked;
-  // tableOrderRender(SMACH.newOrder);
 };

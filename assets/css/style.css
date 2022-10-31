@@ -39,6 +39,7 @@ body .notify {
   right: -100%;
 }
 
+body .notify.notify-warning,
 body .notify.notify-error,
 body .notify.notify-success {
   right: 10px;
@@ -125,7 +126,7 @@ body[state="selected_orders"] .table-wrap.__all-orders {
     border-radius: 0;
     right: 0;
   }
-
+  body .notify.notify-warning,
   body .notify.notify-error,
   body .notify.notify-success {
     top: 0;

@@ -39,7 +39,7 @@ function checkAllItemsOnTable(tableSelector, checked) {
 }
 function printOrders() {
   if (SMACH.orders.length == 0) {
-    alert("Não ha nenhum pedido para ser impresso");
+    notify("warning", "Não ha nenhum pedido para ser impresso");
     return;
   }
   window.print();
@@ -59,8 +59,8 @@ function tableOrderListeners() {
   buttonDeleteProduct.forEach((button) => {
     button.addEventListener("click", () => {
       const product = findProduct(button.getAttribute("product-id"));
-      deleteProductToNewOrder(product);
-      tableOrderRender(SMACH.newOrder);
+      deleteProductToorder(product);
+      tableOrderRender(SMACH.order);
     });
   });
 }
@@ -103,9 +103,9 @@ function tableAllOrdersRender(orders) {
   const ordersMapped = orders.map((order) => ({
     ...order,
     id: `<fieldset class="field"><input order-id="${order.id}" class="row-field-checkbox" type="checkbox" /></fieldset>${order.id}`,
-    status: `<button disabled order-id="${order.id}" class="${
-      btn[order.status]
-    }">${legend[order.status]}</button>`,
+    status: `<button order-id="${order.id}" class="${btn[order.status]}">${
+      legend[order.status]
+    }</button>`,
   }));
 
   tableRender(".table-all-orders", ordersMapped, [
@@ -135,19 +135,19 @@ function changeOrderStatus(orders, orderId) {
   return ordersMapped;
 }
 
-function getTotalPriceToNewOrder(products) {
+function getTotalPriceToOrder(products) {
   return products.reduce(
     (priceTotal, product) => (priceTotal += product.priceTotal),
     0
   );
 }
 
-function getNewOrderComputedDate(newOrder) {
-  const name = newOrder.products.reduce(
+function getOrderComputedDate(order) {
+  const name = order.products.reduce(
     (name, product) => (name += `${product.quantity} - ${product.name}`),
     ""
   );
-  const priceTotal = newOrder.products.reduce(
+  const priceTotal = order.products.reduce(
     (priceTotal, product) => (priceTotal += product.priceTotal),
     0
   );
@@ -161,8 +161,14 @@ function updateOrder(order, orderPayload) {
   return orderMapped;
 }
 
+function clearOrder() {
+  return {
+    products: [],
+  };
+}
+
 function editOrder(allOrders, order) {
-  const { name, priceTotal } = getNewOrderComputedDate(order);
+  const { name, priceTotal } = getOrderComputedDate(order);
   const ordersMapped = allOrders.map((orderItem) => {
     if (orderItem.id === order.id) {
       return { ...order, name, priceTotal, status: ORDER_STATE.RECEIVED };
@@ -173,26 +179,27 @@ function editOrder(allOrders, order) {
 }
 
 function addOrder(allOrders, order) {
-  const { name, priceTotal } = getNewOrderComputedDate(order);
-  const newOrder = {
+  const { name, priceTotal } = getOrderComputedDate(order);
+  const orderMapped = {
     id: uuid(),
     name,
     priceTotal,
     status: ORDER_STATE.RECEIVED,
     ...order,
   };
-  allOrders.unshift(newOrder);
+  allOrders.unshift(orderMapped);
   return allOrders;
+  z;
 }
 
-function deleteProductToNewOrder(product) {
-  const productIndex = SMACH.newOrder.products.findIndex(
+function deleteProductToorder(product) {
+  const productIndex = SMACH.order.products.findIndex(
     (orderItem) => orderItem.code === product.code
   );
   if (productIndex >= 0) {
-    SMACH.newOrder.products.splice(productIndex, 1);
+    SMACH.order.products.splice(productIndex, 1);
   }
-  return SMACH.newOrder;
+  return SMACH.order;
 }
 function addProductToOrder(order, product) {
   const productIndex = order.products.findIndex(
@@ -209,7 +216,7 @@ function addProductToOrder(order, product) {
   return order;
 }
 
-function searchProductAndFillFormNewOrder() {
+function searchProductAndFillFormOrder() {
   const productCode = getFormData(".form-new-order").get("productCode");
   const product = findProduct(productCode);
   if (product) {
@@ -219,28 +226,29 @@ function searchProductAndFillFormNewOrder() {
       productPrice: product.price,
     });
   } else {
-    alert("Produto nao encontrado insira um codigo valido");
+    notify("error", "Produto nao encontrado insira um codigo valido");
   }
 }
 
 function addOrderAndTableRender() {
-  if (!SMACH.newOrder.products.length) {
-    alert("adiciona algum produto no pedido");
+  if (!SMACH.order.products.length) {
+    notify("error", "Adiciona algum produto no pedido");
     return false;
   }
   const order = {
-    ...SMACH.newOrder,
+    ...SMACH.order,
     type: getFormData(".form-new-order").get("orderType"),
   };
 
-  if (!SMACH.newOrder.id) {
+  if (!SMACH.order.id) {
     SMACH.orders = addOrder(SMACH.orders, order);
   } else {
     SMACH.orders = editOrder(SMACH.orders, order);
   }
 
-  SMACH.newOrder = [];
+  SMACH.order = clearOrder();
 
+  tableOrderRender(SMACH.order);
   tableAllOrdersRender(SMACH.orders);
   changePage(PAGE_STATE.ALL_ORDERS);
 }
@@ -257,11 +265,11 @@ function addProductToOrderAndTableRender() {
   ]);
 
   if (!product) {
-    alert("produto nao encontrado");
+    notify("warning", "Produto não encontrado");
     return;
   }
   if (!allFieldsFilled) {
-    alert("preencha todos os campos");
+    notify("error", "Preencha todos os campos");
     return;
   }
 
@@ -272,12 +280,12 @@ function addProductToOrderAndTableRender() {
     productPrice: "",
   });
 
-  SMACH.newOrder = addProductToOrder(SMACH.newOrder, {
+  SMACH.order = addProductToOrder(SMACH.order, {
     ...product,
     quantity: Number(productQuantity),
   });
 
-  tableOrderRender(SMACH.newOrder);
+  tableOrderRender(SMACH.order);
 }
 
 function editOrderChecked() {
@@ -285,17 +293,17 @@ function editOrderChecked() {
   const order = ordersSelecteds[0];
 
   if (ordersSelecteds.length !== 1) {
-    alert("Voce so pode editar 1 pedido por fez");
+    notify("warning", "Voce so pode editar 1 pedido por fez");
     return;
   }
-  SMACH.newOrder = updateOrder(SMACH.newOrder, order);
+  SMACH.order = updateOrder(SMACH.order, order);
   changePage(PAGE_STATE.EDIT_ORDER);
-  tableOrderRender(SMACH.newOrder);
+  tableOrderRender(SMACH.order);
 }
 function deleteOrdersChecked() {
-  const orders = getOrdersCheckedOnTable(".table-all-orders");
+  const orders = getOrdersCheckedOnTable(SMACH.orders);
   SMACH.orders = deleteOrders(SMACH.orders, orders);
-  tableAllOrdersRender();
+  tableAllOrdersRender(SMACH.orders);
   changePage(PAGE_STATE.ALL_ORDERS);
 }
 
@@ -311,7 +319,7 @@ function getAllOrdersFiltered(type, status) {
 
 function tableOrderRender(order) {
   const tableTotal = document.querySelector(".table-new-order__total strong");
-  const priceTotal = getTotalPriceToNewOrder(order.products);
+  const priceTotal = getTotalPriceToOrder(order.products);
   const formTitle =
     getPageState() === PAGE_STATE.EDIT_ORDER
       ? `Editar Pedido - ${order.id}`

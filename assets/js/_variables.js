@@ -51,7 +51,7 @@ const SMACH = {
       price: 50,
     },
   ],
-  newOrder: {
+  order: {
     products: [],
   },
   orders: [],

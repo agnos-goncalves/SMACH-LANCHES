@@ -9,6 +9,11 @@
   justify-content: space-between;
   align-items: center;
   transition: all 0.3s ease-in-out;
+  color: white;
+}
+
+.notify .icon-close {
+  background-image: url(../img/svg/icon-close-white.svg);
 }
 
 .notify-success {
@@ -16,4 +21,7 @@
 }
 .notify-error {
   background-color: var(--cl-error);
+}
+.notify-warning {
+  background-color: var(--cl-warning);
 }

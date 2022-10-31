@@ -79,17 +79,20 @@ function changePage(pageState) {
   document.querySelector("body").setAttribute("state", pageState);
 }
 
-function notify(state) {
+function notify(state, message) {
   const notifyElement = document.querySelector(".notify");
   const classes = {
     success: "notify-success",
-    error: "notify-success",
+    error: "notify-error",
+    warning: "notify-warning",
   };
   if (state === "none") {
-    notifyElement.classList.remove(classes.success);
-    notifyElement.classList.remove(classes.error);
+    for (let prop of Object.values(classes)) {
+      notifyElement.classList.remove(prop);
+    }
     return;
   }
+  notifyElement.querySelector("span").innerText = message;
   notifyElement.classList.add(classes[state]);
   setTimeout(() => {
     notify("none");
