@@ -65,7 +65,7 @@ function tableOrderListeners() {
   buttonDeleteProduct.forEach((button) => {
     button.addEventListener("click", () => {
       const product = findProduct(button.getAttribute("product-id"));
-      deleteProductToOrder(product);
+      SMACH.order = deleteProductToOrder(SMACH.order, product);
       notify("success", `Produto ${product.code} removido`);
       tableOrderRender(SMACH.order);
     });
@@ -153,7 +153,7 @@ function getTotalPriceToOrder(products) {
 
 function getOrderComputedData(order) {
   const name = order.products.reduce(
-    (name, product) => (name += `${product.quantity} - ${product.name}`),
+    (name, product) => (name += `${product.quantity} - ${product.name}  `),
     ""
   );
   const priceTotal = order.products.reduce(
@@ -200,14 +200,14 @@ function addOrder(allOrders, order) {
   return allOrders;
 }
 
-function deleteProductToOrder(product) {
-  const productIndex = SMACH.order.products.findIndex(
+function deleteProductToOrder(order, product) {
+  const productIndex = order.products.findIndex(
     (orderItem) => orderItem.code === product.code
   );
   if (productIndex >= 0) {
-    SMACH.order.products.splice(productIndex, 1);
+    order.products.splice(productIndex, 1);
   }
-  return SMACH.order;
+  return order;
 }
 function addProductToOrder(order, product) {
   const productIndex = order.products.findIndex(
