@@ -151,7 +151,7 @@ function getTotalPriceToOrder(products) {
   );
 }
 
-function getOrderComputedDate(order) {
+function getOrderComputedData(order) {
   const name = order.products.reduce(
     (name, product) => (name += `${product.quantity} - ${product.name}`),
     ""
@@ -177,7 +177,7 @@ function clearOrder() {
 }
 
 function editOrder(allOrders, order) {
-  const { name, priceTotal } = getOrderComputedDate(order);
+  const { name, priceTotal } = getOrderComputedData(order);
   const ordersMapped = allOrders.map((orderItem) => {
     if (orderItem.id === order.id) {
       return { ...order, name, priceTotal, status: ORDER_STATE.RECEIVED };
@@ -188,7 +188,7 @@ function editOrder(allOrders, order) {
 }
 
 function addOrder(allOrders, order) {
-  const { name, priceTotal } = getOrderComputedDate(order);
+  const { name, priceTotal } = getOrderComputedData(order);
   const orderMapped = {
     id: uuid(),
     name,
@@ -198,7 +198,6 @@ function addOrder(allOrders, order) {
   };
   allOrders.unshift(orderMapped);
   return allOrders;
-  z;
 }
 
 function deleteProductToOrder(product) {
