@@ -49,6 +49,8 @@ window.onload = () => {
 
   buttonCancelOrder.addEventListener("click", (e) => {
     changePage(PAGE_STATE.ALL_ORDERS);
+    SMACH.order = clearOrder();
+    tableOrderRender(SMACH.order);
   });
 
   filtersOrder.forEach((select) => {
